@@ -12,6 +12,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from .agent import Investigator
+from .archive import CaseArchive
 from .embeddings import Embedder
 from .gemini_client import GeminiClient
 from .graph import corpus_overview
@@ -32,12 +33,18 @@ investigator = Investigator(store, gemini)
 if (DEMO_DIR / "demo_victim_statement.txt").exists():
     store.never_commit((DEMO_DIR / "demo_victim_statement.txt").read_text())
 
+archive = CaseArchive()
+store.archive = archive
+if archive.available:
+    log.info("Restored %d case(s) from Firestore", store.restore_from_archive())
+
 app = FastAPI(title="FraudLens AI", version="0.1.0")
 
 
 @app.get("/api/health")
 def health():
     return {"ok": True, "gemini": gemini.available, "model": gemini.model, "embeddings": store.embedder.mode,
+            "firestore": archive.available,
             **store.stats()}
 
 

@@ -224,7 +224,7 @@ async function loadHealth(){
   try{
     const h = await (await fetch("/api/health")).json();
     const chip = $("#modeChip");
-    chip.textContent = h.gemini ? `Gemini · ${h.model}` : "Offline fallback (no Gemini key)";
+    chip.textContent = h.gemini ? `Gemini · ${h.model}${h.firestore ? " · Firestore" : ""}` : "Offline fallback (no Gemini key)";
     chip.className = "chip " + (h.gemini ? "ok" : "off");
     $("#stats").innerHTML = `<span><b>${h.reports}</b> complaints</span><span><b>${h.identifiers}</b> identifiers</span><span><b>${h.identifiers_seen_in_multiple_reports}</b> seen more than once</span>`;
   }catch(e){ $("#modeChip").textContent = "API unreachable"; }

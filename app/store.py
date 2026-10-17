@@ -48,7 +48,31 @@ class CaseStore:
         self.cases: dict[str, dict] = {}
         # Statements that are never added to the corpus (the bundled demo case is meant to be re-run)
         self.skip_commit: set[str] = set()
+        self.archive = None  # optional CaseArchive (Firestore); set by main.py
         self._load()
+
+    def archive_case(self, case_id: str) -> bool:
+        if not self.archive:
+            return False
+        with self._lock:
+            case = dict(self.cases[case_id])
+        return self.archive.save(case)
+
+    def restore_from_archive(self) -> int:
+        """Reload archived cases: history for the UI, and committed cases back into the corpus."""
+        if not self.archive:
+            return 0
+        n = 0
+        for c in self.archive.load():
+            if not c.get("id") or c["id"] in self.cases:
+                continue
+            c.setdefault("evidence_blobs", [])
+            c.setdefault("trace", [])
+            self.cases[c["id"]] = c
+            if c.get("committed") and c.get("extraction"):
+                self.commit_case_to_corpus(c["id"], c["extraction"])
+            n += 1
+        return n
 
     def never_commit(self, text: str):
         self.skip_commit.add(_norm_text(text))

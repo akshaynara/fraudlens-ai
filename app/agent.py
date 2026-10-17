@@ -127,13 +127,17 @@ class Investigator:
             self.store.update_case(case_id, brief=brief)
 
             added = self.store.commit_case_to_corpus(case_id, extraction.model_dump())
-            self.store.update_case(case_id, status="done", finished_at=datetime.now(timezone.utc).isoformat(timespec="seconds"))
+            self.store.update_case(case_id, status="done", committed=added,
+                                   finished_at=datetime.now(timezone.utc).isoformat(timespec="seconds"))
             trace("phase", "Done", "Case added to the corpus so future complaints can link to it" if added
                   else "Demo or duplicate statement, so it was not added to the corpus (re-runs stay clean)")
+            if self.store.archive_case(case_id):
+                trace("note", "Case saved to Firestore", "Investigation record persists across restarts")
         except Exception as e:  # keep the error visible in the UI
             log.error("investigation failed: %s\n%s", e, traceback.format_exc())
             trace("error", "Investigation failed", str(e))
             self.store.update_case(case_id, status="error", error=str(e))
+            self.store.archive_case(case_id)
 
     # ------------------------------------------------------------------ [1] extraction
     def _extract(self, case: dict) -> IncidentExtraction:

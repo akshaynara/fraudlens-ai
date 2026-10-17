@@ -31,7 +31,17 @@ evidence (images / PDF / audio / text)
 ```
 
 Every step streams into an **agent activity** timeline in the UI. The case is then committed to the
-corpus so the next complaint can link to it.
+corpus so the next complaint can link to it, and the full investigation record is saved to **Firestore**.
+
+### Google Cloud services
+
+| Service | What it does in FraudLens |
+|---|---|
+| **Gemini 3.8 Flash** | Multimodal evidence extraction (structured output), the tool-using investigation agent (automatic function calling), the Skeptic review and the brief |
+| **Gemini embeddings** (`gemini-embedding-001`) | Narrative similarity between complaints, to surface reports that share a playbook but no identifier |
+| **Cloud Run** | Hosts the FastAPI backend and the investigator workbench (one warm instance, CPU always on for background investigations) |
+| **Firestore** | Case archive: every investigation (reconstruction, trace, network, verdicts, brief) is persisted; on restart, case history and investigated complaints are restored into the corpus so future complaints keep linking to them |
+| **Firebase Hosting** | Public front door: serves the app on a `web.app` domain and rewrites all traffic to the Cloud Run service |
 
 ### Why this needs Gen AI
 * Evidence is unstructured and multimodal; identifiers live inside screenshots and chats.
@@ -47,7 +57,8 @@ app/
   agent.py          the 5-step pipeline, prompts, tools, offline fallbacks
   gemini_client.py  google-genai wrapper (AI Studio key or Vertex AI)
   graph.py          deterministic relationship engine, vis-network output
-  store.py          corpus store + identifier index + similarity (swap for Firestore/BigQuery)
+  store.py          corpus store + identifier index + similarity
+  archive.py        Firestore case archive (optional; app keeps working in memory without it)
   embeddings.py     Gemini embeddings with local fallback
   models.py         Pydantic schemas (structured outputs)
 static/index.html   investigator workbench (vanilla JS + vis-network)
@@ -75,10 +86,21 @@ gcloud auth login && gcloud config set project YOUR_PROJECT
 export GEMINI_API_KEY=...        # or switch to Vertex AI env vars in deploy.sh
 REGION=asia-south1 ./deploy.sh
 ```
-`deploy.sh` uses `gcloud run deploy --source .` (Cloud Build builds the Dockerfile). First deploy
+`deploy.sh` enables Firestore, creates the database if needed, grants the runtime service account
+`roles/datastore.user`, then runs `gcloud run deploy --source .` (Cloud Build builds the Dockerfile). First deploy
 takes ~3–4 minutes. To use Vertex AI instead of a key, set `GOOGLE_GENAI_USE_VERTEXAI=true`,
 `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION` and grant the Cloud Run service account
 `roles/aiplatform.user`.
+
+## Firebase Hosting (front door)
+
+```bash
+npm install -g firebase-tools     # or: curl -sL https://firebase.tools | bash
+firebase login
+firebase projects:addfirebase gen-lang-client-0815567638   # once, if the project is not a Firebase project yet
+firebase deploy --only hosting
+```
+`firebase.json` rewrites every request to the `fraudlens` Cloud Run service in `asia-south1`.
 
 ## The demo (3 minutes)
 
@@ -123,7 +145,7 @@ Identifier chains are reliable; story similarity alone is not, and the product s
 | UX (10%) | One screen: intake → live agent trace → network reveal → verdicts → brief. Click a node to jump to its evidence trail. |
 
 ## Roadmap (for the deck)
-* Firestore/BigQuery corpus, Pub/Sub intake from the bank's complaint system and NCRP exports.
+* BigQuery analytics over the Firestore archive, Pub/Sub intake from the bank's complaint system and NCRP exports.
 * Audio evidence (call recordings) and PDF statements — already supported by the extraction step.
 * Investigator feedback loop: confirmed/rejected links retrain the Skeptic's thresholds.
 * Victim-facing intake assistant that organises evidence and files the 1930/NCRP complaint.
