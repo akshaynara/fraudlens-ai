@@ -146,7 +146,9 @@ class Investigator:
             for f in case["evidence_blobs"]:
                 parts.append(self.gemini.file_part(f["bytes"], f["mime"]))
                 parts.append(f"(The item above is evidence file: {f['name']})")
-            parts.append(f"Victim statement:\n{case['narrative']}\n\nReconstruct the incident.")
+            parts.append(f"Today's date (UTC): {_today()}. The complaint was received at {case['created_at']}. "
+                         "Dates up to today are not in the future.\n\n"
+                         f"Victim statement:\n{case['narrative']}\n\nReconstruct the incident.")
             return self.gemini.generate_structured(parts, IncidentExtraction, EXTRACT_SYSTEM, model=self.gemini.model_pro)
         return self._extract_fallback(case)
 
@@ -211,7 +213,7 @@ class Investigator:
         if not self.gemini.available:
             return self._investigate_fallback(case_id, extraction, lookup_identifier, get_report, find_similar_reports)
 
-        prompt = ("Reconstructed complaint:\n" + extraction.model_dump_json(indent=1) +
+        prompt = (f"Today's date (UTC): {_today()}.\n\nReconstructed complaint:\n" + extraction.model_dump_json(indent=1) +
                   "\n\nInvestigate connections now. Finish with the JSON object only.")
         text = self.gemini.run_agent(prompt, AGENT_SYSTEM, [lookup_identifier, get_report, find_similar_reports])
         try:
@@ -274,7 +276,7 @@ class Investigator:
     # ------------------------------------------------------------------ [5] brief
     def _brief(self, case, extraction, findings, cluster, review) -> str:
         material = {
-            "case_id": case["id"], "received": case["created_at"], "victim_statement": case["narrative"],
+            "today_utc": _today(), "case_id": case["id"], "received": case["created_at"], "victim_statement": case["narrative"],
             "reconstruction": extraction.model_dump(), "agent_findings": findings.model_dump(),
             "network": {"summary": cluster["summary"], "related": [{k: r[k] for k in ("report_id", "scam_type", "filed_at", "city", "amount_inr", "hops", "via")} for r in cluster["related"]],
                         "generic_identifiers_ignored": cluster["generic_identifiers"]},
@@ -291,6 +293,10 @@ class Investigator:
             lines.append(f"- {r['report_id']} ({r['scam_type']}, {r['filed_at'][:10]}): via {via}. Verdict: {v.verdict if v else 'n/a'}")
         lines.append("## Note\nGemini unavailable: this is a rule-based brief. Set GEMINI_API_KEY for the full analysis.")
         return "\n\n".join(lines)
+
+
+def _today() -> str:
+    return datetime.now(timezone.utc).strftime("%d %B %Y")
 
 
 def _guess_type(text: str) -> str:
