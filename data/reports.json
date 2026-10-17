@@ -1,0 +1,2527 @@
+[
+  {
+    "id": "FR-2026-0001",
+    "filed_at": "2026-06-23T02:00",
+    "victim_city": "Indore",
+    "scam_type": "fake_buyer_olx",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 173400,
+    "amount_on_receipt_inr": 173400,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "I listed a sofa on OLX. A buyer from +91 7799937880 said he was an Army officer being transferred and would pay in advance via UPI. He sent a QR code and said scanning it would credit me, but Rs 173,400 was debited instead to amit.iyer36@okaxis. He insisted it was a mistake and sent another QR.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 7799937880",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "amit.iyer36@okaxis",
+        "source": "narrative"
+      }
+    ],
+    "status": "closed_unresolved",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0002",
+    "filed_at": "2026-06-23T16:00",
+    "victim_city": "Delhi",
+    "scam_type": "investment_group",
+    "channel": "whatsapp",
+    "amount_claimed_inr": 108400,
+    "amount_on_receipt_inr": 108400,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "I was added to a WhatsApp stock-tips group run by a 'SEBI-registered advisor'. Members posted daily profits. I invested Rs 108,400 through their app by transferring to meena.singh64@okaxis and account 50408206513575. When I tried to withdraw they asked for 20% tax first.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 7788381610",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "meena.singh64@okaxis",
+        "source": "narrative"
+      },
+      {
+        "type": "account",
+        "value": "50408206513575",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0003",
+    "filed_at": "2026-06-26T16:00",
+    "victim_city": "Indore",
+    "scam_type": "digital_arrest",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 137200,
+    "amount_on_receipt_inr": 137200,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt",
+      "call_log"
+    ],
+    "narrative": "I got a call from +91 6754289969 claiming to be from the Mumbai Cyber Cell / CBI. They said a parcel in my name with drugs was seized and an arrest warrant was issued. They moved me to a WhatsApp video call where a man in uniform told me I was under 'digital arrest' and could not disconnect. They made me transfer Rs 137,200 to arjun.sharma69@ybl as 'verification deposit' promising refund in 24 hours. I was on the call for almost 7 hours.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6754289969",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "arjun.sharma69@ybl",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0004",
+    "filed_at": "2026-06-27T13:00",
+    "victim_city": "Indore",
+    "scam_type": "loan_app",
+    "channel": "app",
+    "amount_claimed_inr": 232200,
+    "amount_on_receipt_inr": 232200,
+    "evidence_types": [
+      "app_screenshot",
+      "whatsapp_screenshot"
+    ],
+    "narrative": "I downloaded an instant loan app and got Rs 232,200 but they demanded Rs 29700 within 7 days. Recovery agents from +91 7358901477 started sending morphed photos to my contacts and threatening me on WhatsApp. They asked me to pay to pooja.gupta37@ibl to stop the harassment.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 7358901477",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "pooja.gupta37@ibl",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0005",
+    "filed_at": "2026-06-28T02:00",
+    "victim_city": "Lucknow",
+    "scam_type": "electricity_bill",
+    "channel": "sms",
+    "amount_claimed_inr": 197900,
+    "amount_on_receipt_inr": 197900,
+    "evidence_types": [
+      "sms_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "Got an SMS saying my electricity connection would be disconnected tonight because last month's bill was not updated, with a link https://parcel-release-659.online. The page looked exactly like the board's website. I entered my details and paid Rs 197,900 to priya.patel20@paytm. Then I got OTP messages and Rs 37000 more was debited.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9954018130",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "priya.patel20@paytm",
+        "source": "narrative"
+      },
+      {
+        "type": "url",
+        "value": "https://parcel-release-659.online",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0006",
+    "filed_at": "2026-06-28T05:00",
+    "victim_city": "Kochi",
+    "scam_type": "kyc_update",
+    "channel": "sms+call",
+    "amount_claimed_inr": 105900,
+    "amount_on_receipt_inr": 105900,
+    "evidence_types": [
+      "sms_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "SMS said my SBI account would be blocked for KYC non-compliance and to call +91 7274172362. The caller asked me to share the OTP to 'verify PAN link'. Three transactions of Rs 105,900 were made to kavya.iyer79@paytm within minutes.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 7274172362",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "kavya.iyer79@paytm",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0007",
+    "filed_at": "2026-06-29T16:00",
+    "victim_city": "Bengaluru",
+    "scam_type": "investment_group",
+    "channel": "whatsapp",
+    "amount_claimed_inr": 87300,
+    "amount_on_receipt_inr": 87300,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "I was added to a WhatsApp stock-tips group run by a 'SEBI-registered advisor'. Members posted daily profits. I invested Rs 87,300 through their app by transferring to rohit.nair15@oksbi and account 58029172087787. When I tried to withdraw they asked for 20% tax first.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6130391580",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "rohit.nair15@oksbi",
+        "source": "narrative"
+      },
+      {
+        "type": "account",
+        "value": "58029172087787",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0008",
+    "filed_at": "2026-07-01T09:00",
+    "victim_city": "Kolkata",
+    "scam_type": "loan_app",
+    "channel": "app",
+    "amount_claimed_inr": 72200,
+    "amount_on_receipt_inr": 72200,
+    "evidence_types": [
+      "app_screenshot",
+      "whatsapp_screenshot"
+    ],
+    "narrative": "I downloaded an instant loan app and got Rs 72,200 but they demanded Rs 35500 within 7 days. Recovery agents from +91 7978462767 started sending morphed photos to my contacts and threatening me on WhatsApp. They asked me to pay to manoj.gupta56@ybl to stop the harassment.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 7978462767",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "manoj.gupta56@ybl",
+        "source": "narrative"
+      }
+    ],
+    "status": "closed_unresolved",
+    "_truth": {
+      "cluster": "B",
+      "note": "bridge via phone, different tactic"
+    }
+  },
+  {
+    "id": "FR-2026-0009",
+    "filed_at": "2026-07-01T18:00",
+    "victim_city": "Chennai",
+    "scam_type": "electricity_bill",
+    "channel": "sms+call",
+    "amount_claimed_inr": 137300,
+    "amount_on_receipt_inr": 137300,
+    "evidence_types": [
+      "sms_screenshot",
+      "call_log",
+      "bank_statement"
+    ],
+    "narrative": "SMS from an unknown number said 'Dear consumer your power will be cut at 9.30 PM, contact officer +91 9322979182'. I called and he asked me to install a quick-support app from https://kyc-verify-sbi-455.site to update the bill. Within 20 minutes Rs 137,300 was transferred out of my Kotak account.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9322979182",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "isha.das48@axl",
+        "source": "narrative"
+      },
+      {
+        "type": "url",
+        "value": "https://kyc-verify-sbi-455.site",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0010",
+    "filed_at": "2026-07-02T22:00",
+    "victim_city": "Kolkata",
+    "scam_type": "kyc_update",
+    "channel": "sms+call",
+    "amount_claimed_inr": 11400,
+    "amount_on_receipt_inr": 11400,
+    "evidence_types": [
+      "sms_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "SMS said my Bank of Baroda account would be blocked for KYC non-compliance and to call +91 9108122527. The caller asked me to share the OTP to 'verify PAN link'. Three transactions of Rs 11,400 were made to priya.verma55@paytm within minutes.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9108122527",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "priya.verma55@paytm",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0011",
+    "filed_at": "2026-07-04T03:00",
+    "victim_city": "Lucknow",
+    "scam_type": "investment_group",
+    "channel": "whatsapp",
+    "amount_claimed_inr": 44100,
+    "amount_on_receipt_inr": 44100,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "I was added to a WhatsApp stock-tips group run by a 'SEBI-registered advisor'. Members posted daily profits. I invested Rs 44,100 through their app by transferring to deepak.das88@ybl and account 95393192583130. When I tried to withdraw they asked for 20% tax first.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 8490569023",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "deepak.das88@ybl",
+        "source": "narrative"
+      },
+      {
+        "type": "account",
+        "value": "95393192583130",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0012",
+    "filed_at": "2026-07-04T04:00",
+    "victim_city": "Lucknow",
+    "scam_type": "task_job",
+    "channel": "telegram",
+    "amount_claimed_inr": 245800,
+    "amount_on_receipt_inr": 245800,
+    "evidence_types": [
+      "telegram_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "Got a job offer for hotel review tasks via Telegram. Small payments came first, building trust. Later tasks required a 'deposit' and I sent Rs 245,800 to rohit.iyer14@okhdfcbank. The dashboard showed earnings of nearly double but the admin demanded more tax deposit before withdrawal. I realised it was fake when they asked for another Rs 9100.",
+    "identifiers": [
+      {
+        "type": "upi",
+        "value": "rohit.iyer14@okhdfcbank",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0013",
+    "filed_at": "2026-07-13T09:00",
+    "victim_city": "Hyderabad",
+    "scam_type": "task_job",
+    "channel": "telegram",
+    "amount_claimed_inr": 122700,
+    "amount_on_receipt_inr": 122700,
+    "evidence_types": [
+      "telegram_screenshot",
+      "upi_receipt",
+      "bank_statement"
+    ],
+    "narrative": "A WhatsApp message offered part-time work liking YouTube videos and rating hotels, Rs 50-150 per task. The first few tasks paid out small amounts. Then I was added to a Telegram group and asked to complete 'prepaid merchant tasks'. I deposited Rs 122,700 in total to karan.verma66@paytm and my wallet showed profit but withdrawal kept failing with 'credit score too low, deposit more'.",
+    "identifiers": [
+      {
+        "type": "upi",
+        "value": "karan.verma66@paytm",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "cluster": "C",
+      "link": "semantic"
+    }
+  },
+  {
+    "id": "FR-2026-0014",
+    "filed_at": "2026-07-17T09:00",
+    "victim_city": "Kochi",
+    "scam_type": "loan_app",
+    "channel": "app",
+    "amount_claimed_inr": 40400,
+    "amount_on_receipt_inr": 40400,
+    "evidence_types": [
+      "app_screenshot",
+      "whatsapp_screenshot"
+    ],
+    "narrative": "I downloaded an instant loan app and got Rs 40,400 but they demanded Rs 26900 within 7 days. Recovery agents from +91 9844573155 started sending morphed photos to my contacts and threatening me on WhatsApp. They asked me to pay to vikas.reddy32@upi to stop the harassment.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9844573155",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "vikas.reddy32@upi",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0015",
+    "filed_at": "2026-07-17T16:00",
+    "victim_city": "Pune",
+    "scam_type": "electricity_bill",
+    "channel": "sms",
+    "amount_claimed_inr": 108800,
+    "amount_on_receipt_inr": 108800,
+    "evidence_types": [
+      "sms_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "Got an SMS saying my electricity connection would be disconnected tonight because last month's bill was not updated, with a link https://tax-refund-india-460.online. The page looked exactly like the board's website. I entered my details and paid Rs 108,800 to sneha.gupta96@ybl. Then I got OTP messages and Rs 19500 more was debited.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9461676063",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "sneha.gupta96@ybl",
+        "source": "narrative"
+      },
+      {
+        "type": "url",
+        "value": "https://tax-refund-india-460.online",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0016",
+    "filed_at": "2026-07-18T01:00",
+    "victim_city": "Pune",
+    "scam_type": "task_job",
+    "channel": "telegram",
+    "amount_claimed_inr": 86200,
+    "amount_on_receipt_inr": 47410,
+    "evidence_types": [
+      "telegram_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "Got a job offer for hotel review tasks via Telegram (@hr_team334). Small payments came first, building trust. Later tasks required a 'deposit' and I sent Rs 86,200 to rohit.reddy29@okaxis. The dashboard showed earnings of nearly double but the admin demanded more tax deposit before withdrawal. I realised it was fake when they asked for another Rs 40200.",
+    "identifiers": [
+      {
+        "type": "upi",
+        "value": "rohit.reddy29@okaxis",
+        "source": "narrative"
+      },
+      {
+        "type": "telegram",
+        "value": "@hr_team334",
+        "source": "narrative"
+      }
+    ],
+    "status": "closed_unresolved",
+    "_truth": {
+      "cluster": "C",
+      "link": "telegram+semantic"
+    }
+  },
+  {
+    "id": "FR-2026-0017",
+    "filed_at": "2026-07-20T02:00",
+    "victim_city": "Hyderabad",
+    "scam_type": "investment_group",
+    "channel": "whatsapp",
+    "amount_claimed_inr": 58300,
+    "amount_on_receipt_inr": 58300,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "I was added to a WhatsApp stock-tips group run by a 'SEBI-registered advisor'. Members posted daily profits. I invested Rs 58,300 through their app by transferring to sanjay.mehta31@oksbi and account 83128652631930. When I tried to withdraw they asked for 20% tax first. I later called 1800-425-3800 and was told to file a complaint online.",
+    "identifiers": [
+      {
+        "type": "upi",
+        "value": "sanjay.mehta31@oksbi",
+        "source": "narrative"
+      },
+      {
+        "type": "account",
+        "value": "83128652631930",
+        "source": "narrative"
+      },
+      {
+        "type": "phone",
+        "value": "1800-425-3800",
+        "source": "narrative"
+      }
+    ],
+    "status": "closed_unresolved",
+    "_truth": {
+      "decoy": "shares SBI toll-free only"
+    }
+  },
+  {
+    "id": "FR-2026-0018",
+    "filed_at": "2026-07-20T08:00",
+    "victim_city": "Pune",
+    "scam_type": "task_job",
+    "channel": "telegram",
+    "amount_claimed_inr": 7000,
+    "amount_on_receipt_inr": 7000,
+    "evidence_types": [
+      "telegram_screenshot",
+      "upi_receipt",
+      "bank_statement"
+    ],
+    "narrative": "A WhatsApp message offered part-time work liking YouTube videos and rating hotels, Rs 50-150 per task. The first few tasks paid out small amounts. Then I was added to a Telegram group (@job_team67) and asked to complete 'prepaid merchant tasks'. I deposited Rs 7,000 in total to neha.das14@paytm and my wallet showed profit but withdrawal kept failing with 'credit score too low, deposit more'.",
+    "identifiers": [
+      {
+        "type": "upi",
+        "value": "neha.das14@paytm",
+        "source": "narrative"
+      },
+      {
+        "type": "telegram",
+        "value": "@job_team67",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0019",
+    "filed_at": "2026-07-23T09:00",
+    "victim_city": "Bengaluru",
+    "scam_type": "loan_app",
+    "channel": "app",
+    "amount_claimed_inr": 139100,
+    "amount_on_receipt_inr": 139100,
+    "evidence_types": [
+      "app_screenshot",
+      "whatsapp_screenshot"
+    ],
+    "narrative": "I downloaded an instant loan app and got Rs 139,100 but they demanded Rs 14500 within 7 days. Recovery agents from +91 6580387860 started sending morphed photos to my contacts and threatening me on WhatsApp. They asked me to pay to divya.sharma55@upi to stop the harassment.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6580387860",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "divya.sharma55@upi",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0020",
+    "filed_at": "2026-07-25T12:00",
+    "victim_city": "Kolkata",
+    "scam_type": "courier_parcel",
+    "channel": "call",
+    "amount_claimed_inr": 36300,
+    "amount_on_receipt_inr": 36300,
+    "evidence_types": [
+      "call_log",
+      "upi_receipt"
+    ],
+    "narrative": "Received a call from +91 7685314850 about a FedEx/India Post parcel with illegal items booked in my name. They transferred me to a 'police officer' who asked me to pay Rs 36,300 to rohit.singh52@oksbi to get the case closed quietly. After payment both numbers switched off.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 7685314850",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "rohit.singh52@oksbi",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0021",
+    "filed_at": "2026-07-26T02:00",
+    "victim_city": "Jaipur",
+    "scam_type": "electricity_bill",
+    "channel": "sms",
+    "amount_claimed_inr": 127200,
+    "amount_on_receipt_inr": 50880,
+    "evidence_types": [
+      "sms_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "Got an SMS saying my electricity connection would be disconnected tonight because last month's bill was not updated, with a link https://pm-yojana-claim-364.site. The page looked exactly like the board's website. I entered my details and paid Rs 127,200 to sanjay.gupta75@okaxis. Then I got OTP messages and Rs 33600 more was debited.",
+    "identifiers": [
+      {
+        "type": "url",
+        "value": "https://pm-yojana-claim-364.site",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "sanjay.gupta75@okaxis",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "cluster": "B"
+    }
+  },
+  {
+    "id": "FR-2026-0022",
+    "filed_at": "2026-07-27T02:00",
+    "victim_city": "Pune",
+    "scam_type": "courier_parcel",
+    "channel": "call",
+    "amount_claimed_inr": 34400,
+    "amount_on_receipt_inr": 34400,
+    "evidence_types": [
+      "call_log",
+      "upi_receipt"
+    ],
+    "narrative": "Received a call from +91 9700239801 about a FedEx/India Post parcel with illegal items booked in my name. They transferred me to a 'police officer' who asked me to pay Rs 34,400 to isha.gupta21@ybl to get the case closed quietly. After payment both numbers switched off.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9700239801",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "isha.gupta21@ybl",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0023",
+    "filed_at": "2026-07-28T06:00",
+    "victim_city": "Chennai",
+    "scam_type": "digital_arrest",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 25700,
+    "amount_on_receipt_inr": 25700,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "A man called from +91 6846102653 saying my Aadhaar was used for money laundering and I had to cooperate with a 'Supreme Court' video hearing on WhatsApp. They showed a fake ID card and FIR copy. Under pressure I paid Rs 25,700 to UPI pooja.reddy19@axl which they said would be returned after 'RBI verification'. They warned me not to tell family members.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6846102653",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "pooja.reddy19@axl",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0024",
+    "filed_at": "2026-07-29T05:00",
+    "victim_city": "Chennai",
+    "scam_type": "kyc_update",
+    "channel": "sms+call",
+    "amount_claimed_inr": 95800,
+    "amount_on_receipt_inr": 95800,
+    "evidence_types": [
+      "sms_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "SMS said my HDFC Bank account would be blocked for KYC non-compliance and to call +91 9294781924. The caller asked me to share the OTP to 'verify PAN link'. Three transactions of Rs 95,800 were made to meena.verma42@ybl within minutes.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9294781924",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "meena.verma42@ybl",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0025",
+    "filed_at": "2026-07-29T14:00",
+    "victim_city": "Mumbai",
+    "scam_type": "digital_arrest",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 7000,
+    "amount_on_receipt_inr": 7000,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "A man called from +91 6443043868 saying my Aadhaar was used for money laundering and I had to cooperate with a 'Supreme Court' video hearing on WhatsApp. They showed a fake ID card and FIR copy. Under pressure I paid Rs 7,000 to UPI isha.mehta81@axl which they said would be returned after 'RBI verification'. They warned me not to tell family members.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6443043868",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "isha.mehta81@axl",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "cluster": "A"
+    }
+  },
+  {
+    "id": "FR-2026-0026",
+    "filed_at": "2026-08-03T11:00",
+    "victim_city": "Indore",
+    "scam_type": "electricity_bill",
+    "channel": "sms",
+    "amount_claimed_inr": 58100,
+    "amount_on_receipt_inr": 58100,
+    "evidence_types": [
+      "sms_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "Got an SMS saying my electricity connection would be disconnected tonight because last month's bill was not updated, with a link https://mseb-recharge-437.top. The page looked exactly like the board's website. I entered my details and paid Rs 58,100 to arjun.das11@okhdfcbank. Then I got OTP messages and Rs 22300 more was debited.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6696748187",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "arjun.das11@okhdfcbank",
+        "source": "narrative"
+      },
+      {
+        "type": "url",
+        "value": "https://mseb-recharge-437.top",
+        "source": "narrative"
+      }
+    ],
+    "status": "closed_unresolved",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0027",
+    "filed_at": "2026-08-04T19:00",
+    "victim_city": "Chennai",
+    "scam_type": "courier_parcel",
+    "channel": "call",
+    "amount_claimed_inr": 177200,
+    "amount_on_receipt_inr": 177200,
+    "evidence_types": [
+      "call_log",
+      "upi_receipt"
+    ],
+    "narrative": "Received a call from +91 9761865253 about a FedEx/India Post parcel with illegal items booked in my name. They transferred me to a 'police officer' who asked me to pay Rs 177,200 to amit.das76@ibl to get the case closed quietly. After payment both numbers switched off.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9761865253",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "amit.das76@ibl",
+        "source": "narrative"
+      }
+    ],
+    "status": "closed_unresolved",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0028",
+    "filed_at": "2026-08-04T22:00",
+    "victim_city": "Jaipur",
+    "scam_type": "investment_group",
+    "channel": "whatsapp",
+    "amount_claimed_inr": 67500,
+    "amount_on_receipt_inr": 67500,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "I was added to a WhatsApp stock-tips group run by a 'SEBI-registered advisor'. Members posted daily profits. I invested Rs 67,500 through their app by transferring to priya.das55@ybl and account 65308599235527. When I tried to withdraw they asked for 20% tax first.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 7631788513",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "priya.das55@ybl",
+        "source": "narrative"
+      },
+      {
+        "type": "account",
+        "value": "65308599235527",
+        "source": "narrative"
+      }
+    ],
+    "status": "closed_unresolved",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0029",
+    "filed_at": "2026-08-10T03:00",
+    "victim_city": "Indore",
+    "scam_type": "digital_arrest",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 145300,
+    "amount_on_receipt_inr": 145300,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt",
+      "call_log"
+    ],
+    "narrative": "I got a call from +91 8972016138 claiming to be from the Mumbai Cyber Cell / CBI. They said a parcel in my name with drugs was seized and an arrest warrant was issued. They moved me to a WhatsApp video call where a man in uniform told me I was under 'digital arrest' and could not disconnect. They made me transfer Rs 145,300 to divya.patel76@okaxis as 'verification deposit' promising refund in 24 hours. I was on the call for almost 4 hours.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 8972016138",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "divya.patel76@okaxis",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0030",
+    "filed_at": "2026-08-11T03:00",
+    "victim_city": "Chennai",
+    "scam_type": "kyc_update",
+    "channel": "sms+call",
+    "amount_claimed_inr": 181200,
+    "amount_on_receipt_inr": 181200,
+    "evidence_types": [
+      "sms_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "SMS said my Bank of Baroda account would be blocked for KYC non-compliance and to call +91 9439370843. The caller asked me to share the OTP to 'verify PAN link'. Three transactions of Rs 181,200 were made to isha.singh86@upi within minutes.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9439370843",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "isha.singh86@upi",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0031",
+    "filed_at": "2026-08-14T12:00",
+    "victim_city": "Kolkata",
+    "scam_type": "electricity_bill",
+    "channel": "sms+call",
+    "amount_claimed_inr": 213700,
+    "amount_on_receipt_inr": 213700,
+    "evidence_types": [
+      "sms_screenshot",
+      "call_log",
+      "bank_statement"
+    ],
+    "narrative": "SMS from an unknown number said 'Dear consumer your power will be cut at 9.30 PM, contact officer +91 7922299757'. I called and he asked me to install a quick-support app from https://pm-yojana-claim-364.site to update the bill. Within 20 minutes Rs 213,700 was transferred out of my PNB account.",
+    "identifiers": [
+      {
+        "type": "url",
+        "value": "https://pm-yojana-claim-364.site",
+        "source": "narrative"
+      },
+      {
+        "type": "phone",
+        "value": "+91 7922299757",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "cluster": "B"
+    }
+  },
+  {
+    "id": "FR-2026-0032",
+    "filed_at": "2026-08-15T13:00",
+    "victim_city": "Indore",
+    "scam_type": "fake_buyer_olx",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 20400,
+    "amount_on_receipt_inr": 20400,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "I listed a sofa on OLX. A buyer from +91 9909158028 said he was an Army officer being transferred and would pay in advance via UPI. He sent a QR code and said scanning it would credit me, but Rs 20,400 was debited instead to vikas.verma12@upi. He insisted it was a mistake and sent another QR.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9909158028",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "vikas.verma12@upi",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0033",
+    "filed_at": "2026-08-15T15:00",
+    "victim_city": "Delhi",
+    "scam_type": "task_job",
+    "channel": "telegram",
+    "amount_claimed_inr": 69800,
+    "amount_on_receipt_inr": 69800,
+    "evidence_types": [
+      "telegram_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "Got a job offer for hotel review tasks via Telegram. Small payments came first, building trust. Later tasks required a 'deposit' and I sent Rs 69,800 to deepak.iyer66@upi. The dashboard showed earnings of nearly double but the admin demanded more tax deposit before withdrawal. I realised it was fake when they asked for another Rs 42800.",
+    "identifiers": [
+      {
+        "type": "upi",
+        "value": "deepak.iyer66@upi",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0034",
+    "filed_at": "2026-08-15T17:00",
+    "victim_city": "Delhi",
+    "scam_type": "task_job",
+    "channel": "telegram",
+    "amount_claimed_inr": 35400,
+    "amount_on_receipt_inr": 35400,
+    "evidence_types": [
+      "telegram_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "Got a job offer for hotel review tasks via Telegram (@hr_india780). Small payments came first, building trust. Later tasks required a 'deposit' and I sent Rs 35,400 to deepak.verma31@paytm. The dashboard showed earnings of nearly double but the admin demanded more tax deposit before withdrawal. I realised it was fake when they asked for another Rs 12000.",
+    "identifiers": [
+      {
+        "type": "upi",
+        "value": "deepak.verma31@paytm",
+        "source": "narrative"
+      },
+      {
+        "type": "telegram",
+        "value": "@hr_india780",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0035",
+    "filed_at": "2026-08-19T00:00",
+    "victim_city": "Hyderabad",
+    "scam_type": "task_job",
+    "channel": "telegram",
+    "amount_claimed_inr": 200000,
+    "amount_on_receipt_inr": 200000,
+    "evidence_types": [
+      "telegram_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "Got a job offer for hotel review tasks via Telegram. Small payments came first, building trust. Later tasks required a 'deposit' and I sent Rs 200,000 to ritu.reddy22@ybl. The dashboard showed earnings of nearly double but the admin demanded more tax deposit before withdrawal. I realised it was fake when they asked for another Rs 29000.",
+    "identifiers": [
+      {
+        "type": "upi",
+        "value": "ritu.reddy22@ybl",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "cluster": "C",
+      "link": "semantic"
+    }
+  },
+  {
+    "id": "FR-2026-0036",
+    "filed_at": "2026-08-20T08:00",
+    "victim_city": "Mumbai",
+    "scam_type": "loan_app",
+    "channel": "app",
+    "amount_claimed_inr": 165900,
+    "amount_on_receipt_inr": 165900,
+    "evidence_types": [
+      "app_screenshot",
+      "whatsapp_screenshot"
+    ],
+    "narrative": "I downloaded an instant loan app and got Rs 165,900 but they demanded Rs 55300 within 7 days. Recovery agents from +91 9482496945 started sending morphed photos to my contacts and threatening me on WhatsApp. They asked me to pay to rahul.verma40@ybl to stop the harassment.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9482496945",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "rahul.verma40@ybl",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0037",
+    "filed_at": "2026-08-21T12:00",
+    "victim_city": "Lucknow",
+    "scam_type": "loan_app",
+    "channel": "app",
+    "amount_claimed_inr": 141800,
+    "amount_on_receipt_inr": 141800,
+    "evidence_types": [
+      "app_screenshot",
+      "whatsapp_screenshot"
+    ],
+    "narrative": "I downloaded an instant loan app and got Rs 141,800 but they demanded Rs 29600 within 7 days. Recovery agents from +91 8960132984 started sending morphed photos to my contacts and threatening me on WhatsApp. They asked me to pay to isha.das54@ibl to stop the harassment.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 8960132984",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "isha.das54@ibl",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0038",
+    "filed_at": "2026-08-23T20:00",
+    "victim_city": "Jaipur",
+    "scam_type": "electricity_bill",
+    "channel": "sms+call",
+    "amount_claimed_inr": 128300,
+    "amount_on_receipt_inr": 128300,
+    "evidence_types": [
+      "sms_screenshot",
+      "call_log",
+      "bank_statement"
+    ],
+    "narrative": "SMS from an unknown number said 'Dear consumer your power will be cut at 9.30 PM, contact officer +91 7703002920'. I called and he asked me to install a quick-support app from https://parcel-release-570.site to update the bill. Within 20 minutes Rs 128,300 was transferred out of my PNB account.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 7703002920",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "rohit.reddy35@ibl",
+        "source": "narrative"
+      },
+      {
+        "type": "url",
+        "value": "https://parcel-release-570.site",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0039",
+    "filed_at": "2026-08-23T20:00",
+    "victim_city": "Delhi",
+    "scam_type": "investment_group",
+    "channel": "whatsapp",
+    "amount_claimed_inr": 236800,
+    "amount_on_receipt_inr": 236800,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "I was added to a WhatsApp stock-tips group run by a 'SEBI-registered advisor'. Members posted daily profits. I invested Rs 236,800 through their app by transferring to isha.gupta79@okaxis and account 41092559529829. When I tried to withdraw they asked for 20% tax first.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9788510228",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "isha.gupta79@okaxis",
+        "source": "narrative"
+      },
+      {
+        "type": "account",
+        "value": "41092559529829",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0040",
+    "filed_at": "2026-08-24T03:00",
+    "victim_city": "Chennai",
+    "scam_type": "electricity_bill",
+    "channel": "sms",
+    "amount_claimed_inr": 191300,
+    "amount_on_receipt_inr": 191300,
+    "evidence_types": [
+      "sms_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "Got an SMS saying my electricity connection would be disconnected tonight because last month's bill was not updated, with a link https://pm-yojana-claim-364.site. The page looked exactly like the board's website. I entered my details and paid Rs 191,300 to sanjay.gupta75@okaxis. Then I got OTP messages and Rs 18400 more was debited.",
+    "identifiers": [
+      {
+        "type": "url",
+        "value": "https://pm-yojana-claim-364.site",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "sanjay.gupta75@okaxis",
+        "source": "narrative"
+      },
+      {
+        "type": "phone",
+        "value": "+91 7922299757",
+        "source": "narrative"
+      }
+    ],
+    "status": "closed_unresolved",
+    "_truth": {
+      "cluster": "B"
+    }
+  },
+  {
+    "id": "FR-2026-0041",
+    "filed_at": "2026-08-29T15:00",
+    "victim_city": "Hyderabad",
+    "scam_type": "digital_arrest",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 66900,
+    "amount_on_receipt_inr": 66900,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt",
+      "call_log"
+    ],
+    "narrative": "I got a call from +91 6443043868 claiming to be from the Mumbai Cyber Cell / CBI. They said a parcel in my name with drugs was seized and an arrest warrant was issued. They moved me to a WhatsApp video call where a man in uniform told me I was under 'digital arrest' and could not disconnect. They made me transfer Rs 66,900 to isha.mehta81@axl as 'verification deposit' promising refund in 24 hours. I was on the call for almost 3 hours.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6443043868",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "isha.mehta81@axl",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "cluster": "A"
+    }
+  },
+  {
+    "id": "FR-2026-0042",
+    "filed_at": "2026-08-31T22:00",
+    "victim_city": "Indore",
+    "scam_type": "investment_group",
+    "channel": "whatsapp",
+    "amount_claimed_inr": 175900,
+    "amount_on_receipt_inr": 175900,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "I was added to a WhatsApp stock-tips group run by a 'SEBI-registered advisor'. Members posted daily profits. I invested Rs 175,900 through their app by transferring to neha.das35@ibl and account 49253423375011. When I tried to withdraw they asked for 20% tax first.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 7354354188",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "neha.das35@ibl",
+        "source": "narrative"
+      },
+      {
+        "type": "account",
+        "value": "49253423375011",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0043",
+    "filed_at": "2026-09-01T01:00",
+    "victim_city": "Ahmedabad",
+    "scam_type": "digital_arrest",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 69900,
+    "amount_on_receipt_inr": 69900,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt",
+      "call_log"
+    ],
+    "narrative": "I got a call from +91 6339749960 claiming to be from the Mumbai Cyber Cell / CBI. They said a parcel in my name with drugs was seized and an arrest warrant was issued. They moved me to a WhatsApp video call where a man in uniform told me I was under 'digital arrest' and could not disconnect. They made me transfer Rs 69,900 to isha.mehta81@axl as 'verification deposit' promising refund in 24 hours. I was on the call for almost 5 hours.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6339749960",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "isha.mehta81@axl",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "cluster": "A"
+    }
+  },
+  {
+    "id": "FR-2026-0044",
+    "filed_at": "2026-09-01T07:00",
+    "victim_city": "Chennai",
+    "scam_type": "digital_arrest",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 197400,
+    "amount_on_receipt_inr": 197400,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt",
+      "call_log"
+    ],
+    "narrative": "I got a call from +91 7577631299 claiming to be from the Mumbai Cyber Cell / CBI. They said a parcel in my name with drugs was seized and an arrest warrant was issued. They moved me to a WhatsApp video call where a man in uniform told me I was under 'digital arrest' and could not disconnect. They made me transfer Rs 197,400 to deepak.gupta97@okaxis as 'verification deposit' promising refund in 24 hours. I was on the call for almost 9 hours.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 7577631299",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "deepak.gupta97@okaxis",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0045",
+    "filed_at": "2026-09-02T07:00",
+    "victim_city": "Chennai",
+    "scam_type": "kyc_update",
+    "channel": "sms+call",
+    "amount_claimed_inr": 31500,
+    "amount_on_receipt_inr": 31500,
+    "evidence_types": [
+      "sms_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "SMS said my Axis Bank account would be blocked for KYC non-compliance and to call +91 9508646665. The caller asked me to share the OTP to 'verify PAN link'. Three transactions of Rs 31,500 were made to divya.das92@oksbi within minutes.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9508646665",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "divya.das92@oksbi",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0046",
+    "filed_at": "2026-09-03T16:00",
+    "victim_city": "Kochi",
+    "scam_type": "investment_group",
+    "channel": "whatsapp",
+    "amount_claimed_inr": 159500,
+    "amount_on_receipt_inr": 159500,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "I was added to a WhatsApp stock-tips group run by a 'SEBI-registered advisor'. Members posted daily profits. I invested Rs 159,500 through their app by transferring to vikas.das38@ibl and account 63113524159736. When I tried to withdraw they asked for 20% tax first.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6951833295",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "vikas.das38@ibl",
+        "source": "narrative"
+      },
+      {
+        "type": "account",
+        "value": "63113524159736",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0047",
+    "filed_at": "2026-09-03T21:00",
+    "victim_city": "Jaipur",
+    "scam_type": "fake_buyer_olx",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 137800,
+    "amount_on_receipt_inr": 137800,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "I listed a sofa on OLX. A buyer from +91 6995285742 said he was an Army officer being transferred and would pay in advance via UPI. He sent a QR code and said scanning it would credit me, but Rs 137,800 was debited instead to anjali.reddy13@okaxis. He insisted it was a mistake and sent another QR. I reported it to 1930 the next morning.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6995285742",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "anjali.reddy13@okaxis",
+        "source": "narrative"
+      },
+      {
+        "type": "phone",
+        "value": "1930",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "decoy": "shares 1930 only"
+    }
+  },
+  {
+    "id": "FR-2026-0048",
+    "filed_at": "2026-09-04T06:00",
+    "victim_city": "Bengaluru",
+    "scam_type": "courier_parcel",
+    "channel": "call",
+    "amount_claimed_inr": 205600,
+    "amount_on_receipt_inr": 205600,
+    "evidence_types": [
+      "call_log",
+      "upi_receipt"
+    ],
+    "narrative": "Received a call from +91 8161880504 about a FedEx/India Post parcel with illegal items booked in my name. They transferred me to a 'police officer' who asked me to pay Rs 205,600 to meena.sharma46@ibl to get the case closed quietly. After payment both numbers switched off.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 8161880504",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "meena.sharma46@ibl",
+        "source": "narrative"
+      }
+    ],
+    "status": "closed_unresolved",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0049",
+    "filed_at": "2026-09-04T10:00",
+    "victim_city": "Lucknow",
+    "scam_type": "digital_arrest",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 36200,
+    "amount_on_receipt_inr": 19910,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt",
+      "call_log"
+    ],
+    "narrative": "I got a call from +91 8545096323 claiming to be from the Mumbai Cyber Cell / CBI. They said a parcel in my name with drugs was seized and an arrest warrant was issued. They moved me to a WhatsApp video call where a man in uniform told me I was under 'digital arrest' and could not disconnect. They made me transfer Rs 36,200 to rahul.sharma22@ybl as 'verification deposit' promising refund in 24 hours. I was on the call for almost 8 hours.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 8545096323",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "rahul.sharma22@ybl",
+        "source": "narrative"
+      }
+    ],
+    "status": "closed_unresolved",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0050",
+    "filed_at": "2026-09-06T00:00",
+    "victim_city": "Hyderabad",
+    "scam_type": "kyc_update",
+    "channel": "sms+call",
+    "amount_claimed_inr": 95000,
+    "amount_on_receipt_inr": 95000,
+    "evidence_types": [
+      "sms_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "SMS said my ICICI Bank account would be blocked for KYC non-compliance and to call +91 6208983255. The caller asked me to share the OTP to 'verify PAN link'. Three transactions of Rs 95,000 were made to sneha.singh60@okhdfcbank within minutes.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6208983255",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "sneha.singh60@okhdfcbank",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0051",
+    "filed_at": "2026-09-07T20:00",
+    "victim_city": "Kolkata",
+    "scam_type": "task_job",
+    "channel": "telegram",
+    "amount_claimed_inr": 110900,
+    "amount_on_receipt_inr": 110900,
+    "evidence_types": [
+      "telegram_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "Got a job offer for hotel review tasks via Telegram. Small payments came first, building trust. Later tasks required a 'deposit' and I sent Rs 110,900 to sneha.verma26@okaxis. The dashboard showed earnings of nearly double but the admin demanded more tax deposit before withdrawal. I realised it was fake when they asked for another Rs 31100.",
+    "identifiers": [
+      {
+        "type": "upi",
+        "value": "sneha.verma26@okaxis",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0052",
+    "filed_at": "2026-09-11T10:00",
+    "victim_city": "Jaipur",
+    "scam_type": "investment_group",
+    "channel": "whatsapp",
+    "amount_claimed_inr": 104400,
+    "amount_on_receipt_inr": 104400,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "I was added to a WhatsApp stock-tips group run by a 'SEBI-registered advisor'. Members posted daily profits. I invested Rs 104,400 through their app by transferring to neha.nair44@axl and account 68276405536567. When I tried to withdraw they asked for 20% tax first.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 7809982702",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "neha.nair44@axl",
+        "source": "narrative"
+      },
+      {
+        "type": "account",
+        "value": "68276405536567",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0053",
+    "filed_at": "2026-09-11T16:00",
+    "victim_city": "Hyderabad",
+    "scam_type": "kyc_update",
+    "channel": "sms+call",
+    "amount_claimed_inr": 223500,
+    "amount_on_receipt_inr": 223500,
+    "evidence_types": [
+      "sms_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "SMS said my HDFC Bank account would be blocked for KYC non-compliance and to call +91 8875626331. The caller asked me to share the OTP to 'verify PAN link'. Three transactions of Rs 223,500 were made to neha.verma74@ibl within minutes.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 8875626331",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "neha.verma74@ibl",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0054",
+    "filed_at": "2026-09-14T08:00",
+    "victim_city": "Delhi",
+    "scam_type": "digital_arrest",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 142800,
+    "amount_on_receipt_inr": 142800,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "A man called from +91 9668990848 saying my Aadhaar was used for money laundering and I had to cooperate with a 'Supreme Court' video hearing on WhatsApp. They showed a fake ID card and FIR copy. Under pressure I paid Rs 142,800 to UPI rahul.gupta37@axl which they said would be returned after 'RBI verification'. They warned me not to tell family members.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9668990848",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "rahul.gupta37@axl",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0055",
+    "filed_at": "2026-09-14T20:00",
+    "victim_city": "Jaipur",
+    "scam_type": "electricity_bill",
+    "channel": "sms",
+    "amount_claimed_inr": 93400,
+    "amount_on_receipt_inr": 93400,
+    "evidence_types": [
+      "sms_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "Got an SMS saying my electricity connection would be disconnected tonight because last month's bill was not updated, with a link https://india-post-track-995.link. The page looked exactly like the board's website. I entered my details and paid Rs 93,400 to meena.verma92@okhdfcbank. Then I got OTP messages and Rs 7700 more was debited.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 7594918781",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "meena.verma92@okhdfcbank",
+        "source": "narrative"
+      },
+      {
+        "type": "url",
+        "value": "https://india-post-track-995.link",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0056",
+    "filed_at": "2026-09-15T12:00",
+    "victim_city": "Pune",
+    "scam_type": "fake_buyer_olx",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 178200,
+    "amount_on_receipt_inr": 178200,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "I listed a sofa on OLX. A buyer from +91 6319662980 said he was an Army officer being transferred and would pay in advance via UPI. He sent a QR code and said scanning it would credit me, but Rs 178,200 was debited instead to arjun.iyer61@ybl. He insisted it was a mistake and sent another QR.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6319662980",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "arjun.iyer61@ybl",
+        "source": "narrative"
+      }
+    ],
+    "status": "closed_unresolved",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0057",
+    "filed_at": "2026-09-16T00:00",
+    "victim_city": "Bengaluru",
+    "scam_type": "digital_arrest",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 177400,
+    "amount_on_receipt_inr": 177400,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "A man called from +91 7933867270 saying my Aadhaar was used for money laundering and I had to cooperate with a 'Supreme Court' video hearing on WhatsApp. They showed a fake ID card and FIR copy. Under pressure I paid Rs 177,400 to UPI meena.singh26@oksbi which they said would be returned after 'RBI verification'. They warned me not to tell family members.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 7933867270",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "meena.singh26@oksbi",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0058",
+    "filed_at": "2026-09-17T17:00",
+    "victim_city": "Bengaluru",
+    "scam_type": "courier_parcel",
+    "channel": "call",
+    "amount_claimed_inr": 212800,
+    "amount_on_receipt_inr": 212800,
+    "evidence_types": [
+      "call_log",
+      "upi_receipt"
+    ],
+    "narrative": "Received a call from +91 9290011800 about a FedEx/India Post parcel with illegal items booked in my name. They transferred me to a 'police officer' who asked me to pay Rs 212,800 to suresh.das71@upi to get the case closed quietly. After payment both numbers switched off.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9290011800",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "suresh.das71@upi",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0059",
+    "filed_at": "2026-09-18T10:00",
+    "victim_city": "Ahmedabad",
+    "scam_type": "digital_arrest",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 177200,
+    "amount_on_receipt_inr": 177200,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "A man called from +91 9618528950 saying my Aadhaar was used for money laundering and I had to cooperate with a 'Supreme Court' video hearing on WhatsApp. They showed a fake ID card and FIR copy. Under pressure I paid Rs 177,200 to UPI suresh.sharma14@ybl which they said would be returned after 'RBI verification'. They warned me not to tell family members.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9618528950",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "suresh.sharma14@ybl",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0060",
+    "filed_at": "2026-09-18T15:00",
+    "victim_city": "Chennai",
+    "scam_type": "digital_arrest",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 193600,
+    "amount_on_receipt_inr": 193600,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "A man called from +91 6339749960 saying my Aadhaar was used for money laundering and I had to cooperate with a 'Supreme Court' video hearing on WhatsApp. They showed a fake ID card and FIR copy. Under pressure I paid Rs 193,600 to UPI sanjay.das72@upi which they said would be returned after 'RBI verification'. They warned me not to tell family members.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6339749960",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "sanjay.das72@upi",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "cluster": "A"
+    }
+  },
+  {
+    "id": "FR-2026-0061",
+    "filed_at": "2026-09-19T10:00",
+    "victim_city": "Mumbai",
+    "scam_type": "courier_parcel",
+    "channel": "call",
+    "amount_claimed_inr": 239400,
+    "amount_on_receipt_inr": 239400,
+    "evidence_types": [
+      "call_log",
+      "upi_receipt"
+    ],
+    "narrative": "Received a call from +91 7280755333 about a FedEx/India Post parcel with illegal items booked in my name. They transferred me to a 'police officer' who asked me to pay Rs 239,400 to suresh.nair74@ibl to get the case closed quietly. After payment both numbers switched off.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 7280755333",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "suresh.nair74@ibl",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0062",
+    "filed_at": "2026-09-21T02:00",
+    "victim_city": "Bengaluru",
+    "scam_type": "kyc_update",
+    "channel": "sms+call",
+    "amount_claimed_inr": 185700,
+    "amount_on_receipt_inr": 185700,
+    "evidence_types": [
+      "sms_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "SMS said my HDFC Bank account would be blocked for KYC non-compliance and to call +91 8947731228. The caller asked me to share the OTP to 'verify PAN link'. Three transactions of Rs 185,700 were made to kavya.patel27@paytm within minutes.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 8947731228",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "kavya.patel27@paytm",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0063",
+    "filed_at": "2026-09-23T10:00",
+    "victim_city": "Kolkata",
+    "scam_type": "digital_arrest",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 215200,
+    "amount_on_receipt_inr": 215200,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt",
+      "call_log"
+    ],
+    "narrative": "I got a call from +91 6479535285 claiming to be from the Mumbai Cyber Cell / CBI. They said a parcel in my name with drugs was seized and an arrest warrant was issued. They moved me to a WhatsApp video call where a man in uniform told me I was under 'digital arrest' and could not disconnect. They made me transfer Rs 215,200 to isha.das31@okhdfcbank as 'verification deposit' promising refund in 24 hours. I was on the call for almost 7 hours.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6479535285",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "isha.das31@okhdfcbank",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0064",
+    "filed_at": "2026-09-25T04:00",
+    "victim_city": "Lucknow",
+    "scam_type": "electricity_bill",
+    "channel": "sms+call",
+    "amount_claimed_inr": 81200,
+    "amount_on_receipt_inr": 81200,
+    "evidence_types": [
+      "sms_screenshot",
+      "call_log",
+      "bank_statement"
+    ],
+    "narrative": "SMS from an unknown number said 'Dear consumer your power will be cut at 9.30 PM, contact officer +91 7978462767'. I called and he asked me to install a quick-support app from https://pm-yojana-claim-364.site to update the bill. Within 20 minutes Rs 81,200 was transferred out of my SBI account. I later called 1800-1234 and was told to file a complaint online.",
+    "identifiers": [
+      {
+        "type": "url",
+        "value": "https://pm-yojana-claim-364.site",
+        "source": "narrative"
+      },
+      {
+        "type": "phone",
+        "value": "+91 7978462767",
+        "source": "narrative"
+      },
+      {
+        "type": "phone",
+        "value": "1800-1234",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "cluster": "B"
+    }
+  },
+  {
+    "id": "FR-2026-0065",
+    "filed_at": "2026-09-28T04:00",
+    "victim_city": "Ahmedabad",
+    "scam_type": "kyc_update",
+    "channel": "sms+call",
+    "amount_claimed_inr": 122400,
+    "amount_on_receipt_inr": 122400,
+    "evidence_types": [
+      "sms_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "SMS said my PNB account would be blocked for KYC non-compliance and to call +91 9136671169. The caller asked me to share the OTP to 'verify PAN link'. Three transactions of Rs 122,400 were made to arjun.patel15@okaxis within minutes. I later called 1800-425-3800 and was told to file a complaint online.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9136671169",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "arjun.patel15@okaxis",
+        "source": "narrative"
+      },
+      {
+        "type": "phone",
+        "value": "1800-425-3800",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "decoy": "shares SBI toll-free only"
+    }
+  },
+  {
+    "id": "FR-2026-0066",
+    "filed_at": "2026-09-28T13:00",
+    "victim_city": "Kolkata",
+    "scam_type": "electricity_bill",
+    "channel": "sms+call",
+    "amount_claimed_inr": 160500,
+    "amount_on_receipt_inr": 160500,
+    "evidence_types": [
+      "sms_screenshot",
+      "call_log",
+      "bank_statement"
+    ],
+    "narrative": "SMS from an unknown number said 'Dear consumer your power will be cut at 9.30 PM, contact officer +91 7702221890'. I called and he asked me to install a quick-support app from https://kseb-update-138.top to update the bill. Within 20 minutes Rs 160,500 was transferred out of my Kotak account.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 7702221890",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "priya.verma30@okhdfcbank",
+        "source": "narrative"
+      },
+      {
+        "type": "url",
+        "value": "https://kseb-update-138.top",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0067",
+    "filed_at": "2026-09-29T05:00",
+    "victim_city": "Bengaluru",
+    "scam_type": "task_job",
+    "channel": "telegram",
+    "amount_claimed_inr": 163900,
+    "amount_on_receipt_inr": 163900,
+    "evidence_types": [
+      "telegram_screenshot",
+      "upi_receipt",
+      "bank_statement"
+    ],
+    "narrative": "A WhatsApp message offered part-time work liking YouTube videos and rating hotels, Rs 50-150 per task. The first few tasks paid out small amounts. Then I was added to a Telegram group (@hr_team334) and asked to complete 'prepaid merchant tasks'. I deposited Rs 163,900 in total to karan.mehta79@okhdfcbank and my wallet showed profit but withdrawal kept failing with 'credit score too low, deposit more'.",
+    "identifiers": [
+      {
+        "type": "upi",
+        "value": "karan.mehta79@okhdfcbank",
+        "source": "narrative"
+      },
+      {
+        "type": "telegram",
+        "value": "@hr_team334",
+        "source": "narrative"
+      }
+    ],
+    "status": "closed_unresolved",
+    "_truth": {
+      "cluster": "C",
+      "link": "telegram+semantic"
+    }
+  },
+  {
+    "id": "FR-2026-0068",
+    "filed_at": "2026-09-29T14:00",
+    "victim_city": "Chennai",
+    "scam_type": "electricity_bill",
+    "channel": "sms+call",
+    "amount_claimed_inr": 37400,
+    "amount_on_receipt_inr": 37400,
+    "evidence_types": [
+      "sms_screenshot",
+      "call_log",
+      "bank_statement"
+    ],
+    "narrative": "SMS from an unknown number said 'Dear consumer your power will be cut at 9.30 PM, contact officer +91 9992946454'. I called and he asked me to install a quick-support app from https://fastag-renew-860.link to update the bill. Within 20 minutes Rs 37,400 was transferred out of my Bank of Baroda account.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9992946454",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "sanjay.nair37@oksbi",
+        "source": "narrative"
+      },
+      {
+        "type": "url",
+        "value": "https://fastag-renew-860.link",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0069",
+    "filed_at": "2026-09-30T06:00",
+    "victim_city": "Jaipur",
+    "scam_type": "loan_app",
+    "channel": "app",
+    "amount_claimed_inr": 160200,
+    "amount_on_receipt_inr": 160200,
+    "evidence_types": [
+      "app_screenshot",
+      "whatsapp_screenshot"
+    ],
+    "narrative": "I downloaded an instant loan app and got Rs 160,200 but they demanded Rs 14400 within 7 days. Recovery agents from +91 9356014076 started sending morphed photos to my contacts and threatening me on WhatsApp. They asked me to pay to manoj.reddy63@okaxis to stop the harassment.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9356014076",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "manoj.reddy63@okaxis",
+        "source": "narrative"
+      }
+    ],
+    "status": "closed_unresolved",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0070",
+    "filed_at": "2026-10-01T02:00",
+    "victim_city": "Lucknow",
+    "scam_type": "electricity_bill",
+    "channel": "sms",
+    "amount_claimed_inr": 16800,
+    "amount_on_receipt_inr": 16800,
+    "evidence_types": [
+      "sms_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "Got an SMS saying my electricity connection would be disconnected tonight because last month's bill was not updated, with a link https://pm-yojana-claim-364.site. The page looked exactly like the board's website. I entered my details and paid Rs 16,800 to sanjay.gupta75@okaxis. Then I got OTP messages and Rs 36300 more was debited.",
+    "identifiers": [
+      {
+        "type": "url",
+        "value": "https://pm-yojana-claim-364.site",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "sanjay.gupta75@okaxis",
+        "source": "narrative"
+      }
+    ],
+    "status": "under_review",
+    "_truth": {
+      "cluster": "B"
+    }
+  },
+  {
+    "id": "FR-2026-0071",
+    "filed_at": "2026-10-02T11:00",
+    "victim_city": "Pune",
+    "scam_type": "task_job",
+    "channel": "telegram",
+    "amount_claimed_inr": 74300,
+    "amount_on_receipt_inr": 74300,
+    "evidence_types": [
+      "telegram_screenshot",
+      "upi_receipt",
+      "bank_statement"
+    ],
+    "narrative": "A WhatsApp message offered part-time work liking YouTube videos and rating hotels, Rs 50-150 per task. The first few tasks paid out small amounts. Then I was added to a Telegram group (@earn_desk593) and asked to complete 'prepaid merchant tasks'. I deposited Rs 74,300 in total to neha.reddy81@ybl and my wallet showed profit but withdrawal kept failing with 'credit score too low, deposit more'.",
+    "identifiers": [
+      {
+        "type": "upi",
+        "value": "neha.reddy81@ybl",
+        "source": "narrative"
+      },
+      {
+        "type": "telegram",
+        "value": "@earn_desk593",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0072",
+    "filed_at": "2026-10-04T11:00",
+    "victim_city": "Kochi",
+    "scam_type": "task_job",
+    "channel": "telegram",
+    "amount_claimed_inr": 160800,
+    "amount_on_receipt_inr": 160800,
+    "evidence_types": [
+      "telegram_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "Got a job offer for hotel review tasks via Telegram. Small payments came first, building trust. Later tasks required a 'deposit' and I sent Rs 160,800 to pooja.gupta85@oksbi. The dashboard showed earnings of nearly double but the admin demanded more tax deposit before withdrawal. I realised it was fake when they asked for another Rs 35100.",
+    "identifiers": [
+      {
+        "type": "upi",
+        "value": "pooja.gupta85@oksbi",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "cluster": "C",
+      "link": "semantic"
+    }
+  },
+  {
+    "id": "FR-2026-0073",
+    "filed_at": "2026-10-04T16:00",
+    "victim_city": "Pune",
+    "scam_type": "fake_buyer_olx",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 213800,
+    "amount_on_receipt_inr": 213800,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "I listed a sofa on OLX. A buyer from +91 9530481152 said he was an Army officer being transferred and would pay in advance via UPI. He sent a QR code and said scanning it would credit me, but Rs 213,800 was debited instead to rahul.singh35@okaxis. He insisted it was a mistake and sent another QR.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9530481152",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "rahul.singh35@okaxis",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0074",
+    "filed_at": "2026-10-05T12:00",
+    "victim_city": "Chennai",
+    "scam_type": "electricity_bill",
+    "channel": "sms",
+    "amount_claimed_inr": 131000,
+    "amount_on_receipt_inr": 131000,
+    "evidence_types": [
+      "sms_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "Got an SMS saying my electricity connection would be disconnected tonight because last month's bill was not updated, with a link https://india-post-track-229.xyz. The page looked exactly like the board's website. I entered my details and paid Rs 131,000 to kavya.singh78@oksbi. Then I got OTP messages and Rs 56900 more was debited.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6495133271",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "kavya.singh78@oksbi",
+        "source": "narrative"
+      },
+      {
+        "type": "url",
+        "value": "https://india-post-track-229.xyz",
+        "source": "narrative"
+      }
+    ],
+    "status": "closed_unresolved",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0075",
+    "filed_at": "2026-10-06T22:00",
+    "victim_city": "Jaipur",
+    "scam_type": "courier_parcel",
+    "channel": "call",
+    "amount_claimed_inr": 183200,
+    "amount_on_receipt_inr": 183200,
+    "evidence_types": [
+      "call_log",
+      "upi_receipt"
+    ],
+    "narrative": "Received a call from +91 6473446404 about a FedEx/India Post parcel with illegal items booked in my name. They transferred me to a 'police officer' who asked me to pay Rs 183,200 to ritu.gupta25@ybl to get the case closed quietly. After payment both numbers switched off.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6473446404",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "ritu.gupta25@ybl",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0076",
+    "filed_at": "2026-10-08T11:00",
+    "victim_city": "Hyderabad",
+    "scam_type": "investment_group",
+    "channel": "whatsapp",
+    "amount_claimed_inr": 195900,
+    "amount_on_receipt_inr": 195900,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "I was added to a WhatsApp stock-tips group run by a 'SEBI-registered advisor'. Members posted daily profits. I invested Rs 195,900 through their app by transferring to anjali.iyer69@ybl and account 48510255355645. When I tried to withdraw they asked for 20% tax first.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6616125120",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "anjali.iyer69@ybl",
+        "source": "narrative"
+      },
+      {
+        "type": "account",
+        "value": "48510255355645",
+        "source": "narrative"
+      }
+    ],
+    "status": "closed_unresolved",
+    "_truth": {
+      "noise": true
+    }
+  },
+  {
+    "id": "FR-2026-0077",
+    "filed_at": "2026-10-10T02:00",
+    "victim_city": "Delhi",
+    "scam_type": "digital_arrest",
+    "channel": "call+whatsapp",
+    "amount_claimed_inr": 40900,
+    "amount_on_receipt_inr": 40900,
+    "evidence_types": [
+      "whatsapp_screenshot",
+      "upi_receipt",
+      "call_log"
+    ],
+    "narrative": "I got a call from +91 6339749960 claiming to be from the Mumbai Cyber Cell / CBI. They said a parcel in my name with drugs was seized and an arrest warrant was issued. They moved me to a WhatsApp video call where a man in uniform told me I was under 'digital arrest' and could not disconnect. They made me transfer Rs 40,900 to sanjay.das72@upi as 'verification deposit' promising refund in 24 hours. I was on the call for almost 8 hours. I reported it to 1930 the next morning.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 6339749960",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "sanjay.das72@upi",
+        "source": "narrative"
+      },
+      {
+        "type": "phone",
+        "value": "1930",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "cluster": "A"
+    }
+  },
+  {
+    "id": "FR-2026-0078",
+    "filed_at": "2026-10-12T11:00",
+    "victim_city": "Ahmedabad",
+    "scam_type": "courier_parcel",
+    "channel": "call",
+    "amount_claimed_inr": 27800,
+    "amount_on_receipt_inr": 27800,
+    "evidence_types": [
+      "call_log",
+      "upi_receipt"
+    ],
+    "narrative": "Received a call from +91 9553352586 about a FedEx/India Post parcel with illegal items booked in my name. They transferred me to a 'police officer' who asked me to pay Rs 27,800 to sanjay.das72@upi to get the case closed quietly. After payment both numbers switched off.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 9553352586",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "sanjay.das72@upi",
+        "source": "narrative"
+      }
+    ],
+    "status": "closed_unresolved",
+    "_truth": {
+      "cluster": "A",
+      "note": "bridge via UPI, different tactic"
+    }
+  },
+  {
+    "id": "FR-2026-0079",
+    "filed_at": "2026-10-13T21:00",
+    "victim_city": "Kolkata",
+    "scam_type": "kyc_update",
+    "channel": "sms+call",
+    "amount_claimed_inr": 106300,
+    "amount_on_receipt_inr": 106300,
+    "evidence_types": [
+      "sms_screenshot",
+      "bank_statement"
+    ],
+    "narrative": "SMS said my HDFC Bank account would be blocked for KYC non-compliance and to call +91 7941210101. The caller asked me to share the OTP to 'verify PAN link'. Three transactions of Rs 106,300 were made to sanjay.iyer74@axl within minutes. I reported it to 1930 the next morning.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 7941210101",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "sanjay.iyer74@axl",
+        "source": "narrative"
+      },
+      {
+        "type": "phone",
+        "value": "1930",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "decoy": "shares 1930 only"
+    }
+  },
+  {
+    "id": "FR-2026-0080",
+    "filed_at": "2026-10-14T00:00",
+    "victim_city": "Delhi",
+    "scam_type": "electricity_bill",
+    "channel": "sms",
+    "amount_claimed_inr": 83600,
+    "amount_on_receipt_inr": 83600,
+    "evidence_types": [
+      "sms_screenshot",
+      "upi_receipt"
+    ],
+    "narrative": "Got an SMS saying my electricity connection would be disconnected tonight because last month's bill was not updated, with a link https://india-post-track-218.site. The page looked exactly like the board's website. I entered my details and paid Rs 83,600 to sanjay.sharma93@paytm. Then I got OTP messages and Rs 50900 more was debited.",
+    "identifiers": [
+      {
+        "type": "phone",
+        "value": "+91 8189358171",
+        "source": "narrative"
+      },
+      {
+        "type": "upi",
+        "value": "sanjay.sharma93@paytm",
+        "source": "narrative"
+      },
+      {
+        "type": "url",
+        "value": "https://india-post-track-218.site",
+        "source": "narrative"
+      }
+    ],
+    "status": "open",
+    "_truth": {
+      "noise": true
+    }
+  }
+]
