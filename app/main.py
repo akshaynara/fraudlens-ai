@@ -10,12 +10,14 @@ from pathlib import Path
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel
 
 from .agent import Investigator
 from .archive import CaseArchive
 from .embeddings import Embedder
 from .gemini_client import GeminiClient
 from .graph import corpus_overview
+from .liability import BankPolicy, LiabilityCase, LiabilityDecision, decide
 from .store import CaseStore
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
@@ -110,6 +112,26 @@ def truth():
     if not p.exists():
         raise HTTPException(404, "no ground truth file")
     return FileResponse(p)
+
+
+@app.get("/api/liability/samples")
+def liability_samples():
+    """Synthetic cases, one per rule of the decision table."""
+    p = DATA_DIR / "liability_cases.json"
+    if not p.exists():
+        raise HTTPException(404, "no liability sample file")
+    return FileResponse(p)
+
+
+class LiabilityRequest(BaseModel):
+    case: LiabilityCase
+    policy: BankPolicy = BankPolicy()
+
+
+@app.post("/api/liability/decide", response_model=LiabilityDecision)
+def liability_decide(req: LiabilityRequest):
+    """Deterministic liability decision under RBI's 2027 framework. No Gemini call; an officer signs the result."""
+    return decide(req.case, req.policy)
 
 
 # Demo evidence bundle so judges can try it without preparing files
