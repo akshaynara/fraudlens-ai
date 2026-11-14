@@ -82,6 +82,16 @@ rules then decide, and the **Liability** tab shows the verdict, each finding wit
 compensation conditions and a draft letter to the customer. Transactions before 1 January 2027 are
 decided as a clearly marked preview. See `demo/demo_bank_record.json` for the record format.
 
+**Voice intake.** *Record complaint* takes a voice note in Hindi or English. The browser re-encodes it
+as 16 kHz WAV, Gemini transcribes it and extracts what the caller stated (payment time, amount, 1930
+report, acknowledgement number) and lists follow-up questions for anything missing. The server stamps
+the time the recording arrived, and the liability engine uses that stamp as the time the fraud was
+reported to the bank, because the outcome depends on it. Caller-stated times are flagged for the
+officer to verify. `POST /api/intake` also accepts typed text.
+
+**Letters.** The draft letter to the customer is a fixed template in English and Hindi, filled only
+from the decision, so it cannot say more than the rules found.
+
 The rule values come from published summaries of the directions and sit as constants at the top of
 `app/liability.py`. Check them against the RBI text before relying on them. Not legal advice.
 

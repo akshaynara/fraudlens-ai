@@ -185,3 +185,17 @@ def test_customer_letter_matches_the_outcome(cid, must_contain):
 def test_rejection_letter_gives_reasons_and_evidence():
     letter = customer_letter(decide(case("LIAB-005")))
     assert "scam warning" in letter and "dismissed at 16:38" in letter and "day 9" in letter
+
+
+@pytest.mark.parametrize("cid,must_contain", [
+    ("LIAB-001", "आप ज़िम्मेदार नहीं हैं"), ("LIAB-004", "₹25,000 के मुआवज़े"),
+    ("LIAB-005", "5 कैलेंडर दिनों के भीतर नहीं दी गई"), ("LIAB-003", "अधिकारी का निर्णय"),
+])
+def test_hindi_letter_matches_the_outcome(cid, must_contain):
+    assert must_contain in customer_letter(decide(case(cid)), "hi")
+
+
+def test_both_letters_state_the_same_amounts():
+    d = decide(case("LIAB-006"))
+    en, hi = customer_letter(d), customer_letter(d, "hi")
+    assert "Rs 8,500" in en and "Rs 7,000" in en and "₹8,500" in hi and "₹7,000" in hi

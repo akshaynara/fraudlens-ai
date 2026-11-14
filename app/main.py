@@ -17,6 +17,7 @@ from .archive import CaseArchive
 from .embeddings import Embedder
 from .gemini_client import GeminiClient
 from .graph import corpus_overview
+from .intake import IntakeUnavailable, run_intake
 from .liability import BankPolicy, BankRecord, LiabilityCase, LiabilityDecision, decide
 from .store import CaseStore
 
@@ -68,10 +69,35 @@ def overview():
     return corpus_overview(store)
 
 
+intakes: dict[str, dict] = {}  # intake_id -> record; holds the server-stamped reporting time
+
+
+@app.post("/api/intake")
+async def intake(text: str = Form(""), audio: UploadFile | None = File(default=None)):
+    """First contact: a voice note or typed complaint becomes a structured record with a server-stamped
+    reporting time. Pass the returned intake_id when creating the case."""
+    data = await audio.read() if audio else None
+    if not text.strip() and not data:
+        raise HTTPException(400, "Send a voice recording or the complaint text")
+    if data and len(data) > MAX_UPLOAD_MB * 1024 * 1024:
+        raise HTTPException(413, f"Recording exceeds {MAX_UPLOAD_MB} MB")
+    try:
+        rec = run_intake(gemini, text, data, (audio.content_type if audio else None) or "audio/wav")
+    except IntakeUnavailable as e:
+        raise HTTPException(503, str(e))
+    except Exception as e:
+        log.error("intake failed: %s", e)
+        raise HTTPException(502, "The recording could not be processed. Try again or type the complaint.")
+    intakes[rec["intake_id"]] = rec
+    return rec
+
+
 @app.post("/api/cases")
-async def create_case(narrative: str = Form(...), files: list[UploadFile] = File(default=[])):
+async def create_case(narrative: str = Form(...), files: list[UploadFile] = File(default=[]), intake_id: str = Form("")):
     if not narrative.strip() and not files:
         raise HTTPException(400, "Provide a victim statement and/or evidence files")
+    if intake_id and intake_id not in intakes:
+        raise HTTPException(400, "Unknown intake_id; record the complaint again")
     blobs = []
     bank_record = None
     for f in files:
@@ -94,7 +120,7 @@ async def create_case(narrative: str = Form(...), files: list[UploadFile] = File
     store.create_case({
         "id": case_id, "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "narrative": narrative.strip(), "evidence_files": [b["name"] for b in blobs], "evidence_blobs": blobs,
-        "bank_record": bank_record,
+        "bank_record": bank_record, "intake": intakes.get(intake_id),
         "status": "queued", "trace": [], "extraction": None, "findings": None, "cluster": None, "review": None,
         "liability": None, "brief": None,
     })

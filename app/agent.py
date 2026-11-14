@@ -304,26 +304,41 @@ class Investigator:
         record = liab.BankRecord.model_validate(case.get("bank_record") or {})
         evidence = self._liability_evidence(case, extraction)
 
+        intake = case.get("intake") or {}
+        notes = list(evidence.notes)
+
         txn_at = record.transaction_at or _parse_dt(evidence.transaction_at)
+        if not txn_at and intake.get("transaction_at"):
+            txn_at = _parse_dt(intake["transaction_at"])
+            notes.append("The transaction time is as stated by the caller at intake. Confirm it against the bank's transaction log.")
         receipt = [a for a in extraction.amounts if "receipt" in a.source.lower()]
-        amount = record.amount_inr or next((a.value_inr for a in receipt + list(extraction.amounts)), None)
+        amount = record.amount_inr or next((a.value_inr for a in receipt + list(extraction.amounts)), None) or intake.get("amount_inr")
         missing = [name for name, v in (("transaction date and time", txn_at), ("transaction amount", amount)) if not v]
         if missing:
-            return {"status": "needs_data", "missing": missing, "has_bank_record": bool(case.get("bank_record")),
+            return {"status": "needs_data", "missing": missing, "has_bank_record": bool(case.get("bank_record")), "has_intake": bool(intake),
                     "evidence": evidence.model_dump()}
 
         bank_f, cust_f, tp_rating, tp_evidence = liab.findings_from_bank_record(record)
         have = {f.ground for f in cust_f}
         cust_f += [liab.CustomerFinding(ground=g.ground, rating=g.rating, evidence=g.evidence)
                    for g in evidence.customer_grounds if g.rating != "unknown" and g.ground not in have]
+        if not case.get("bank_record"):
+            notes.append("No bank record was attached, so the bank's own logs (alerts sent, scam warnings, OTP use) were not checked. "
+                         "Check them before signing.")
         strong = sum(1 for v in review.verdicts if v.verdict == "strong")
+        ncrp_at = record.reported_to_ncrp_at or _parse_dt(evidence.reported_to_ncrp_at)
+        if not ncrp_at and intake.get("reported_to_ncrp_at"):
+            ncrp_at = _parse_dt(intake["reported_to_ncrp_at"])
+            notes.append("The 1930 / NCRP reporting time is as stated by the caller. Verify it with the acknowledgement number.")
+        reported_source = ("bank complaint system" if record.reported_to_bank_at else
+                           "stamped at intake" if intake.get("received_at") else "time the case was created")
         lcase = liab.LiabilityCase(
             case_id=case["id"], transaction_at=txn_at, amount_inr=amount, cross_border=record.cross_border,
             is_credit_card=record.is_credit_card, customer_type=record.customer_type,
-            # with no bank record, the complaint reaching FraudLens is the report to the bank
-            reported_to_bank_at=record.reported_to_bank_at or _parse_dt(case["created_at"]),
-            reported_to_ncrp_at=record.reported_to_ncrp_at or _parse_dt(evidence.reported_to_ncrp_at),
-            ncrp_acknowledgement=record.ncrp_acknowledgement or evidence.ncrp_acknowledgement,
+            # reporting time: the bank's complaint system, else the intake's server stamp, else case creation
+            reported_to_bank_at=record.reported_to_bank_at or _parse_dt(intake.get("received_at")) or _parse_dt(case["created_at"]),
+            reported_to_ncrp_at=ncrp_at,
+            ncrp_acknowledgement=record.ncrp_acknowledgement or evidence.ncrp_acknowledgement or intake.get("ncrp_acknowledgement"),
             bank_findings=bank_f, customer_findings=cust_f, third_party_breach=tp_rating, third_party_evidence=tp_evidence,
             amount_recovered_inr=record.amount_recovered_inr, post_report_amount_inr=record.post_report_amount_inr,
             prior_compensation_claimed=record.prior_compensation_claimed, linked_complaints=strong)
@@ -331,7 +346,8 @@ class Investigator:
         return {"status": "decided", "has_bank_record": bool(case.get("bank_record")),
                 "case": lcase.model_dump(mode="json"), "decision": decision.model_dump(mode="json"),
                 "coercion": {"rating": evidence.coercion, "evidence": evidence.coercion_evidence},
-                "notes": evidence.notes, "letter": liab.customer_letter(decision)}
+                "notes": notes, "reported_source": reported_source, "has_intake": bool(intake),
+                "letter": liab.customer_letter(decision), "letter_hi": liab.customer_letter(decision, "hi")}
 
     def _liability_evidence(self, case: dict, extraction: IncidentExtraction) -> LiabilityEvidence:
         if self.gemini.available:

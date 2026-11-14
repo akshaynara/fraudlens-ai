@@ -82,3 +82,16 @@ class LiabilityEvidence(BaseModel):
     coercion: Literal["proven", "claimed", "unknown"] = Field(description="Was the payment made under coercion, intimidation or duress")
     coercion_evidence: str
     notes: list[str] = Field(description="Anything an officer should check before signing")
+
+
+class IntakeExtraction(BaseModel):
+    """A caller's complaint, taken by voice or text, as the facts the bank must record at first contact."""
+
+    language: str = Field(description="Language the caller used: hi, en, hinglish, or another ISO code")
+    statement_english: str = Field(description="The caller's account in plain English, first person, nothing added")
+    statement_original: str = Field(description="The caller's account in their own words and language")
+    transaction_at: Optional[str] = Field(default=None, description="ISO 8601 date-time of the payment with +05:30 offset, only if the caller stated it")
+    amount_inr: Optional[float] = Field(default=None, description="Amount lost in rupees, only if stated")
+    reported_to_ncrp_at: Optional[str] = Field(default=None, description="ISO 8601 date-time the caller reported to 1930 or cybercrime.gov.in, only if stated")
+    ncrp_acknowledgement: Optional[str] = Field(default=None, description="1930 / NCRP acknowledgement number, only if stated")
+    follow_up_questions: list[str] = Field(description="Short questions, in the caller's language, for each fact above that is still missing")

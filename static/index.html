@@ -136,6 +136,17 @@ textarea{width:100%;min-height:140px;resize:vertical;border:1px solid var(--line
 .liab .chk span{color:var(--ink-2)}
 .liab ul.plain{list-style:disc;padding-left:18px} .liab ul.plain li{margin:3px 0}
 .liab pre{white-space:pre-wrap;font-family:var(--font);font-size:13px;line-height:1.55;background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:12px;margin:0}
+.liab .lang{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-left:auto}
+.liab .lang button{border:0;background:none;padding:5px 10px;cursor:pointer;color:var(--ink-2);font:inherit;font-size:12.5px}
+.liab .lang button[aria-pressed="true"]{background:var(--panel-2);color:var(--ink);font-weight:600}
+.rec{display:flex;gap:8px;align-items:center;margin:0 0 8px}
+.rec .btn.on{border-color:var(--bad);color:var(--bad)}
+.rec .st{font-size:12.5px;color:var(--ink-2)}
+.intake{border:1px solid var(--line);border-radius:8px;background:var(--panel-2);padding:10px 12px;margin:0 0 10px;font-size:12.5px}
+.intake b{font-weight:600} .intake dl{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;margin:0}
+.intake dt{color:var(--ink-2)} .intake dd{margin:0}
+.intake .ask{margin:8px 0 0;padding-left:18px} .intake .ask li{margin:2px 0}
+.intake .x{float:right;border:0;background:none;color:var(--ink-3);cursor:pointer;font-size:15px;line-height:1}
 .liab .foot{color:var(--ink-3);font-size:12px;margin-top:14px}
 .score{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 12px}
 .score div{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:8px;text-align:center}
@@ -172,6 +183,11 @@ textarea{width:100%;min-height:140px;resize:vertical;border:1px solid var(--line
     <div class="scroll">
       <form id="caseForm">
         <label for="narrative">Victim statement</label>
+        <div class="rec">
+          <button type="button" class="btn" id="recBtn">Record complaint</button>
+          <span class="st" id="recStatus">Speak in Hindi or English. The reporting time is stamped when the recording is received.</span>
+        </div>
+        <div class="intake" id="intakeCard" hidden></div>
         <textarea id="narrative" name="narrative" placeholder="Paste the victim's description of what happened, or load the demo case."></textarea>
         <label>Evidence files</label>
         <div class="files">Screenshots of receipts, chats, SMS, statements; PDFs; audio. Add the bank record (.json) for a liability decision.
@@ -338,13 +354,82 @@ $("#loadDemo").addEventListener("click", async () => {
   dt.items.add(new File([r2],"demo_whatsapp_chat.png",{type:"image/png"}));
   if(r3) dt.items.add(new File([r3],"demo_bank_record.json",{type:"application/json"}));
   $("#files").files = dt.files; showFiles();
+  clearIntake();
   $("#loadDemo").textContent = "Load demo case";
+});
+
+/* ---------------- voice intake ---------------- */
+let currentIntake = null, recorder = null, recChunks = [], recStream = null, recTimer = null;
+function clearIntake(){ currentIntake = null; $("#intakeCard").hidden = true; $("#intakeCard").innerHTML = ""; }
+const fmtWhen = s => s ? new Date(s).toLocaleString("en-IN",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}) : "not stated";
+function renderIntake(r){
+  currentIntake = r;
+  $("#intakeCard").hidden = false;
+  $("#intakeCard").innerHTML = `<button type="button" class="x" id="intakeClear" aria-label="Discard this intake">×</button>
+    <dl><dt>Reported to bank</dt><dd><b>${esc(fmtWhen(r.received_at))}</b> (stamped at intake, ${esc(r.intake_id)})</dd>
+    <dt>Payment made</dt><dd>${esc(fmtWhen(r.transaction_at))}</dd>
+    <dt>Amount lost</dt><dd>${r.amount_inr ? "₹" + Number(r.amount_inr).toLocaleString("en-IN") : "not stated"}</dd>
+    <dt>1930 / NCRP</dt><dd>${esc(fmtWhen(r.reported_to_ncrp_at))}${r.ncrp_acknowledgement ? " · ack " + esc(r.ncrp_acknowledgement) : ""}</dd></dl>
+    ${r.follow_up_questions?.length ? `<ul class="ask">${r.follow_up_questions.map(q=>`<li>${esc(q)}</li>`).join("")}</ul>` : ""}`;
+  $("#intakeClear").addEventListener("click", clearIntake);
+}
+// Re-encode whatever the browser recorded as 16 kHz mono WAV, a format Gemini accepts everywhere.
+async function toWav(blob){
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const decoded = await ctx.decodeAudioData(await blob.arrayBuffer()); ctx.close();
+  const rate = 16000, off = new OfflineAudioContext(1, Math.max(1, Math.ceil(decoded.duration * rate)), rate);
+  const src = off.createBufferSource(); src.buffer = decoded; src.connect(off.destination); src.start();
+  const pcm = (await off.startRendering()).getChannelData(0);
+  const buf = new ArrayBuffer(44 + pcm.length * 2), v = new DataView(buf);
+  const str = (o, t) => { for(let i = 0; i < t.length; i++) v.setUint8(o + i, t.charCodeAt(i)); };
+  str(0,"RIFF"); v.setUint32(4, 36 + pcm.length * 2, true); str(8,"WAVE"); str(12,"fmt "); v.setUint32(16,16,true); v.setUint16(20,1,true);
+  v.setUint16(22,1,true); v.setUint32(24,rate,true); v.setUint32(28,rate*2,true); v.setUint16(32,2,true); v.setUint16(34,16,true);
+  str(36,"data"); v.setUint32(40, pcm.length * 2, true);
+  for(let i = 0; i < pcm.length; i++){ const x = Math.max(-1, Math.min(1, pcm[i])); v.setInt16(44 + i * 2, x < 0 ? x * 0x8000 : x * 0x7FFF, true); }
+  return new Blob([buf], {type:"audio/wav"});
+}
+async function sendIntake(fd){
+  const res = await fetch("/api/intake", {method:"POST", body:fd});
+  const body = await res.json();
+  if(!res.ok) throw new Error(body.detail || res.statusText);
+  return body;
+}
+$("#recBtn").addEventListener("click", async () => {
+  const btn = $("#recBtn"), st = $("#recStatus");
+  if(recorder && recorder.state === "recording"){ recorder.stop(); return; }
+  try{ recStream = await navigator.mediaDevices.getUserMedia({audio:true}); }
+  catch(e){ st.textContent = "Microphone access was not allowed. Type the complaint instead."; return; }
+  recChunks = []; recorder = new MediaRecorder(recStream);
+  recorder.ondataavailable = e => { if(e.data.size) recChunks.push(e.data); };
+  recorder.onstop = async () => {
+    clearInterval(recTimer); recStream.getTracks().forEach(t => t.stop());
+    btn.classList.remove("on"); btn.disabled = true; btn.textContent = "Processing…"; st.textContent = "Transcribing and reading the complaint…";
+    try{
+      const wav = await toWav(new Blob(recChunks, {type: recorder.mimeType}));
+      const fd = new FormData(); fd.append("audio", wav, "complaint.wav");
+      const r = await sendIntake(fd);
+      $("#narrative").value = r.statement_english;
+      renderIntake(r);
+      const langName = {hi:"Hindi", hinglish:"Hinglish", en:"English"}[r.language];
+      st.textContent = langName && r.language !== "en" ? `Recorded in ${langName}; shown in English for the investigation.` : "Recorded.";
+    }catch(e){ st.textContent = e.message; }
+    btn.disabled = false; btn.textContent = "Record complaint";
+  };
+  recorder.start();
+  const t0 = Date.now();
+  btn.classList.add("on"); btn.textContent = "Stop recording"; st.textContent = "Recording 0:00";
+  recTimer = setInterval(() => {
+    const sec = Math.floor((Date.now() - t0) / 1000);
+    st.textContent = `Recording ${Math.floor(sec/60)}:${String(sec%60).padStart(2,"0")}`;
+    if(sec >= 180) recorder.stop();   // three minutes is plenty for a first report
+  }, 500);
 });
 $("#caseForm").addEventListener("submit", async ev => {
   ev.preventDefault();
   const fd = new FormData();
   fd.append("narrative", $("#narrative").value);
   for(const f of $("#files").files) fd.append("files", f);
+  if(currentIntake) fd.append("intake_id", currentIntake.intake_id);
   $("#runBtn").disabled = true; $("#runBtn").textContent = "Investigating…";
   $("#intro").hidden = true;
   showSkeletons();
@@ -465,7 +550,7 @@ function renderLiability(l){
   if(l.status !== "decided"){
     el.innerHTML = `<p class="verdict">Liability not decided</p>
       <p>The rules need facts that the evidence does not state: <b>${esc((l.missing || []).join(", "))}</b>.</p>
-      <p style="color:var(--ink-2)">${l.has_bank_record ? "The bank record does not contain them." : "Attach the bank record (.json) with the complaint. It carries the transaction time, alerts sent and reporting times."}</p>`;
+      <p style="color:var(--ink-2)">${l.has_bank_record ? "The bank record does not contain them." : l.has_intake ? "The caller did not state them. Ask the follow-up questions and record again, or attach the bank record (.json)." : "Attach the bank record (.json) with the complaint, or record the complaint so the caller can state when the payment was made."}</p>`;
     return;
   }
   const d = l.decision, inr = v => "₹" + Number(v).toLocaleString("en-IN");
@@ -477,6 +562,7 @@ function renderLiability(l){
     <p class="verdict"><span class="rule">${esc(d.rule)}</span><span>${esc(d.headline)}</span></p>
     <div class="score"><div><b>${inr(d.reversal_inr)}</b><span>bank reverses</span></div><div><b>${inr(d.compensation_inr)}</b><span>compensation</span></div><div><b>${inr(d.customer_bears_inr)}</b><span>customer bears</span></div><div><b style="font-size:14px;line-height:27px">${day(d.resolve_by)}</b><span>respond by</span></div></div>
     ${d.needs_officer_review ? `<p class="reason">An officer's judgment is needed before this can be signed.</p>` : ""}
+    ${l.reported_source ? `<p style="margin:0;color:var(--ink-2);font-size:12.5px">Reported to the bank: ${esc(fmtWhen(l.case.reported_to_bank_at))} (${esc(l.reported_source)})</p>` : ""}
     <h3>Findings relied on</h3>
     <ul>${d.grounds_relied_on.map(f=>finding(f,"strong")).join("") || `<li style="color:var(--ink-2)">None. No negligence is proven against anyone.</li>`}</ul>
     ${d.unproven_grounds.length ? `<h3>Raised but not proven</h3><ul>${d.unproven_grounds.map(f=>finding(f,"weak")).join("")}</ul>` : ""}
@@ -485,10 +571,18 @@ function renderLiability(l){
     <h3>Why</h3><ul class="plain">${d.reasons.filter(r=>!r.startsWith("Preview:")).map(r=>`<li>${esc(r)}</li>`).join("")}</ul>
     ${l.notes?.length ? `<h3>For the officer to check</h3><ul class="plain">${l.notes.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>` : ""}
     <h3>Draft letter to the customer</h3>
-    <div class="brief-actions"><button class="btn" id="copyLetter">Copy letter</button></div>
-    <pre>${esc(l.letter)}</pre>
+    <div class="brief-actions"><button class="btn" id="copyLetter">Copy letter</button>
+      ${l.letter_hi ? `<span class="lang" role="group" aria-label="Letter language"><button type="button" data-lang="en" aria-pressed="true">English</button><button type="button" data-lang="hi" aria-pressed="false">हिन्दी</button></span>` : ""}</div>
+    <pre id="letterText">${esc(l.letter)}</pre>
     <p class="foot">The verdict comes from fixed rules, not from Gemini. Draft for an authorised officer to review and sign. ${l.has_bank_record ? "" : "No bank record was attached, so bank-side findings were not checked."}</p>`;
-  $("#copyLetter").addEventListener("click", async () => { await navigator.clipboard.writeText(l.letter); $("#copyLetter").textContent = "Copied"; setTimeout(()=>$("#copyLetter").textContent="Copy letter",1500); });
+  let letterLang = "en";
+  const letterOf = () => letterLang === "hi" ? l.letter_hi : l.letter;
+  el.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => {
+    letterLang = b.dataset.lang;
+    el.querySelectorAll(".lang button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    $("#letterText").textContent = letterOf();
+  }));
+  $("#copyLetter").addEventListener("click", async () => { await navigator.clipboard.writeText(letterOf()); $("#copyLetter").textContent = "Copied"; setTimeout(()=>$("#copyLetter").textContent="Copy letter",1500); });
 }
 function renderBrief(c){
   $("#tab-brief").innerHTML = `<div class="brief-actions"><button class="btn" id="copyBrief">Copy brief</button><button class="btn" id="dlBrief">Download .md</button></div>` + marked.parse(c.brief);

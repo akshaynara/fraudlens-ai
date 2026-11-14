@@ -349,34 +349,95 @@ GROUND_TEXT = {
 }
 
 
-def customer_letter(d: LiabilityDecision) -> str:
-    """Plain-English draft for the customer. Built only from the decision, so it cannot say more than the rules found."""
-    inr = lambda v: f"Rs {v:,.0f}"
-    lines = [f"Subject: Your fraud complaint {d.case_id}", "", "Dear Customer,", "",
-             "We have examined your complaint about a fraudulent transaction on your account."]
-    grounds = [f"- {GROUND_TEXT.get(f.ground, f.ground)} ({f.evidence})" if f.evidence else f"- {GROUND_TEXT.get(f.ground, f.ground)}"
-               for f in d.grounds_relied_on]
+GROUND_TEXT_HI = {
+    "security_systems_missing": "ज़रूरी सुरक्षा व्यवस्थाएँ लागू नहीं थीं",
+    "alert_not_sent": "लेन-देन का अनिवार्य अलर्ट नहीं भेजा गया",
+    "no_24x7_reporting_channel": "शिकायत दर्ज करने की 24x7 सुविधा उपलब्ध नहीं थी",
+    "not_diligent_after_report": "आपकी सूचना के बाद बैंक ने तुरंत कार्रवाई नहीं की",
+    "system_failure_or_internal_fraud": "बैंक की प्रणाली में गड़बड़ी या आंतरिक चूक",
+    "third_party_breach": "भुगतान प्रक्रिया से जुड़े किसी तीसरे पक्ष की चूक",
+    "credentials_shared": "पिन, पासवर्ड या OTP साझा किया गया",
+    "delayed_notification": "बैंक को समय पर सूचना नहीं दी गई",
+    "ignored_scam_warning": "बैंक द्वारा दिखाई गई धोखाधड़ी की स्पष्ट चेतावनी को अनदेखा किया गया",
+    "malicious_app_installed": "फ़ोन में हानिकारक ऐप इंस्टॉल किया गया",
+    "contact_details_not_updated": "बैंक में दर्ज मोबाइल नंबर या ईमेल अपडेट नहीं था",
+}
+CHECK_TEXT_HI = {
+    "individual_or_sole_proprietor": "यह योजना केवल व्यक्तिगत ग्राहकों और एकल स्वामित्व वाले कारोबार के लिए है",
+    "gross_loss_within_limit": f"कुल नुकसान ₹{COMPENSATION_MAX_GROSS_LOSS_INR:,} की सीमा से अधिक है",
+    "reported_to_bank_in_time": f"बैंक को सूचना {REPORTING_WINDOW_DAYS} कैलेंडर दिनों के भीतर नहीं दी गई",
+    "reported_to_ncrp_in_time": f"1930 या cybercrime.gov.in पर शिकायत {REPORTING_WINDOW_DAYS} कैलेंडर दिनों के भीतर दर्ज नहीं की गई",
+    "first_claim": "इस योजना का लाभ पहले लिया जा चुका है",
+    "within_scheme_period": "लेन-देन योजना की अवधि के बाहर का है",
+    "loss_is_bona_fide": "नुकसान की पुष्टि नहीं हो सकी",
+}
+
+LETTER_TEXT = {
+    "en": {
+        "subject": "Subject: Your fraud complaint {id}", "dear": "Dear Customer,",
+        "intro": "We have examined your complaint about a fraudulent transaction on your account.",
+        "zero": "You are not liable for this loss. We will credit {amt} to your account, dated to the day of the transaction, "
+                "so you lose no interest and pay no charges.",
+        "found": "What we found:",
+        "partial": "Our records show the following, which means the loss is not reversed in full:",
+        "comp": "You are eligible for compensation of {amt} under RBI's scheme for small-value frauds. "
+                "It will be paid within 5 calendar days of your completed application.",
+        "post_also": "In addition, {amt} debited after you reported the fraud will be credited back.",
+        "reject": "We are unable to reverse this transaction. Our reasons and the supporting details are:",
+        "no_comp": "Compensation under RBI's small-value fraud scheme does not apply because:",
+        "post": "{amt} debited after you reported the fraud will be credited back.",
+        "officer_by": "Your complaint needs a further decision by an officer. We will write to you again by {date}.",
+        "officer": "Your complaint needs a further decision by an officer. We will write to you again shortly.",
+        "appeal": "If you disagree, you may write to our Grievance Redressal Officer and, after that, to the RBI Ombudsman.",
+        "sign": "[Authorised officer: name, designation, signature]",
+    },
+    "hi": {
+        "subject": "विषय: आपकी धोखाधड़ी शिकायत {id}", "dear": "प्रिय ग्राहक,",
+        "intro": "हमने आपके खाते में हुए धोखाधड़ी वाले लेन-देन की आपकी शिकायत की जाँच की है।",
+        "zero": "इस नुकसान के लिए आप ज़िम्मेदार नहीं हैं। हम {amt} आपके खाते में लेन-देन की तारीख से वापस जमा करेंगे, "
+                "ताकि आपको ब्याज का कोई नुकसान न हो और कोई शुल्क न लगे।",
+        "found": "हमने क्या पाया:",
+        "partial": "हमारे रिकॉर्ड में ये बातें दर्ज हैं, इसलिए पूरी रकम वापस नहीं की जा रही है:",
+        "comp": "आप छोटी रकम की धोखाधड़ी के लिए RBI की योजना के तहत {amt} के मुआवज़े के पात्र हैं। "
+                "आपका पूरा आवेदन मिलने के 5 कैलेंडर दिनों के भीतर इसका भुगतान कर दिया जाएगा।",
+        "post_also": "इसके अलावा, आपकी शिकायत के बाद कटे {amt} भी वापस जमा किए जाएँगे।",
+        "reject": "हम यह लेन-देन वापस नहीं कर पा रहे हैं। इसके कारण और संबंधित विवरण ये हैं:",
+        "no_comp": "RBI की छोटी रकम की धोखाधड़ी योजना के तहत मुआवज़ा लागू नहीं होता, क्योंकि:",
+        "post": "आपकी शिकायत के बाद कटे {amt} वापस जमा किए जाएँगे।",
+        "officer_by": "आपकी शिकायत पर एक अधिकारी का निर्णय अभी बाकी है। हम आपको {date} तक दोबारा लिखेंगे।",
+        "officer": "आपकी शिकायत पर एक अधिकारी का निर्णय अभी बाकी है। हम आपको जल्द ही दोबारा लिखेंगे।",
+        "appeal": "यदि आप इस निर्णय से सहमत नहीं हैं, तो आप हमारे शिकायत निवारण अधिकारी को और उसके बाद RBI लोकपाल को लिख सकते हैं।",
+        "sign": "[अधिकृत अधिकारी: नाम, पद, हस्ताक्षर]",
+    },
+}
+
+
+def customer_letter(d: LiabilityDecision, lang: Literal["en", "hi"] = "en") -> str:
+    """Draft letter for the customer, in English or Hindi. It is a fixed template filled only from the
+    decision, so it cannot say more than the rules found. Evidence references are quoted as recorded."""
+    t = LETTER_TEXT[lang]
+    ground_text = GROUND_TEXT_HI if lang == "hi" else GROUND_TEXT
+    inr = lambda v: (f"₹{v:,.0f}" if lang == "hi" else f"Rs {v:,.0f}")
+    grounds = [f"- {ground_text.get(f.ground, f.ground)}" + (f" ({f.evidence})" if f.evidence else "") for f in d.grounds_relied_on]
+    failed = [c for c in d.compensation_checks if not c.passed]
+    failed_lines = [f"- {CHECK_TEXT_HI.get(c.name, c.detail) if lang == 'hi' else c.detail}" for c in failed]
+
+    lines = [t["subject"].format(id=d.case_id), "", t["dear"], "", t["intro"]]
     if d.outcome in ("zero_liability", "burden_not_met") or (d.outcome == "bank_policy" and d.reversal_inr and not d.needs_officer_review):
-        lines += ["", f"You are not liable for this loss. We will credit {inr(d.reversal_inr)} to your account, dated to the day of the transaction, "
-                      "so you lose no interest and pay no charges."]
+        lines += ["", t["zero"].format(amt=inr(d.reversal_inr))]
         if grounds:
-            lines += ["", "What we found:"] + grounds
+            lines += ["", t["found"]] + grounds
     elif d.outcome == "customer_bears_with_compensation":
-        lines += ["", "Our records show the following, which means the loss is not reversed in full:"] + grounds
-        lines += ["", f"You are eligible for compensation of {inr(d.compensation_inr)} under RBI's scheme for small-value frauds. "
-                      "It will be paid within 5 calendar days of your completed application."]
+        lines += ["", t["partial"]] + grounds + ["", t["comp"].format(amt=inr(d.compensation_inr))]
         if d.reversal_inr:
-            lines += [f"In addition, {inr(d.reversal_inr)} debited after you reported the fraud will be credited back."]
+            lines += [t["post_also"].format(amt=inr(d.reversal_inr))]
     elif d.outcome == "customer_bears":
-        lines += ["", "We are unable to reverse this transaction. Our reasons and the supporting details are:"] + grounds
-        failed = [c.detail for c in d.compensation_checks if not c.passed]
-        if failed:
-            lines += ["", "Compensation under RBI's small-value fraud scheme does not apply because:"] + [f"- {x}" for x in failed]
+        lines += ["", t["reject"]] + grounds
+        if failed_lines:
+            lines += ["", t["no_comp"]] + failed_lines
         if d.reversal_inr:
-            lines += ["", f"{inr(d.reversal_inr)} debited after you reported the fraud will be credited back."]
+            lines += ["", t["post"].format(amt=inr(d.reversal_inr))]
     else:
-        lines += ["", "Your complaint needs a further decision by an officer. We will write to you again"
-                      + (f" by {d.resolve_by.strftime('%d %B %Y')}." if d.resolve_by else " shortly.")]
-    lines += ["", "If you disagree, you may write to our Grievance Redressal Officer and, after that, to the RBI Ombudsman.",
-              "", "[Authorised officer: name, designation, signature]"]
+        lines += ["", t["officer_by"].format(date=d.resolve_by.strftime("%d-%m-%Y" if lang == "hi" else "%d %B %Y")) if d.resolve_by else t["officer"]]
+    lines += ["", t["appeal"], "", t["sign"]]
     return "\n".join(lines)
