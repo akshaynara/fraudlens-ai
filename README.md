@@ -75,6 +75,13 @@ curl -X POST localhost:8080/api/liability/decide -H 'content-type: application/j
      -d '{"case": {"case_id": "T1", "transaction_at": "2027-01-18T16:40:00+05:30", "amount_inr": 48000}}'
 ```
 
+In the pipeline it runs after the Skeptic review and before the brief. Facts come from two places: the
+bank's own record (a `.json` file attached with the complaint: transaction time, alert log, scam-warning
+log, reporting times) and a Gemini pass over the evidence that rates what the screenshots show. The
+rules then decide, and the **Liability** tab shows the verdict, each finding with its evidence, the
+compensation conditions and a draft letter to the customer. Transactions before 1 January 2027 are
+decided as a clearly marked preview. See `demo/demo_bank_record.json` for the record format.
+
 The rule values come from published summaries of the directions and sit as constants at the top of
 `app/liability.py`. Check them against the RBI text before relying on them. Not legal advice.
 

@@ -136,3 +136,52 @@ def test_credit_card_gets_a_shadow_reversal_deadline():
 def test_every_sample_case_decides():
     for cid in SAMPLES:
         assert decide(case(cid)).headline
+
+
+# ---------------------------------------------------------------- preview mode, bank record, letter
+from app.liability import BankRecord, customer_letter, findings_from_bank_record
+
+
+def test_preview_decides_a_pre_2027_case_and_marks_it():
+    pre = dict(transaction_at="2026-10-16T19:42:00+05:30", reported_to_bank_at="2026-10-17T10:20:00+05:30",
+               reported_to_ncrp_at="2026-10-17T09:05:00+05:30")
+    assert decide(case("LIAB-004", **pre)).rule == "R0"
+    d = decide(case("LIAB-004", **pre), preview=True)
+    assert d.rule == "R4" and d.preview and d.compensation_inr == 25000
+    assert d.reasons[0].startswith("Preview:")
+
+
+def test_preview_flag_is_ignored_once_the_framework_applies():
+    d = decide(case("LIAB-004"), preview=True)
+    assert d.rule == "R4" and not d.preview
+
+
+def test_calendar_days_use_indian_time_not_utc():
+    # 23 Jan 23:30 IST is 18:00 UTC on 23 Jan; 24 Jan 00:30 IST is 19:00 UTC on 23 Jan (day 6 in India)
+    late = "2027-01-23T19:00:00+00:00"
+    assert decide(case("LIAB-004", reported_to_bank_at=late, reported_to_ncrp_at=late)).rule == "R5"
+
+
+def test_bank_record_maps_to_findings():
+    r = BankRecord(alert_sent=False, alert_evidence="no SMS", scam_warning_dismissed=True, third_party_incident="gateway INC-1")
+    bank, cust, tp, tp_ev = findings_from_bank_record(r)
+    assert [f.ground for f in bank] == ["alert_not_sent"] and bank[0].evidence == "no SMS"
+    assert [f.ground for f in cust] == ["ignored_scam_warning"]
+    assert (tp, tp_ev) == ("proven", "gateway INC-1")
+
+
+def test_unchecked_bank_record_fields_produce_no_findings():
+    assert findings_from_bank_record(BankRecord()) == ([], [], "unknown", "")
+
+
+@pytest.mark.parametrize("cid,must_contain", [
+    ("LIAB-001", "You are not liable"), ("LIAB-004", "compensation of Rs 25,000"),
+    ("LIAB-005", "unable to reverse"), ("LIAB-007", "You are not liable"), ("LIAB-003", "further decision by an officer"),
+])
+def test_customer_letter_matches_the_outcome(cid, must_contain):
+    assert must_contain in customer_letter(decide(case(cid)))
+
+
+def test_rejection_letter_gives_reasons_and_evidence():
+    letter = customer_letter(decide(case("LIAB-005")))
+    assert "scam warning" in letter and "dismissed at 16:38" in letter and "day 9" in letter

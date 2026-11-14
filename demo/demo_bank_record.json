@@ -1,0 +1,19 @@
+{
+  "customer_type": "individual",
+  "transaction_at": "2026-10-16T19:42:00+05:30",
+  "amount_inr": 48500,
+  "channel": "UPI",
+  "alert_sent": true,
+  "alert_evidence": "SMS alert log: debit alert delivered 19:42:11",
+  "reporting_channel_24x7": true,
+  "acted_on_report": true,
+  "action_evidence": "Complaint system: UPI blocked and beneficiary bank notified 10:31",
+  "scam_warning_dismissed": true,
+  "scam_warning_evidence": "Bank app log: 'This may be a scam. Banks and police never ask for transfers' shown 19:40, dismissed 19:41",
+  "reported_to_bank_at": "2026-10-17T10:20:00+05:30",
+  "reported_to_ncrp_at": "2026-10-17T09:05:00+05:30",
+  "ncrp_acknowledgement": "21710260004821",
+  "amount_recovered_inr": 0,
+  "post_report_amount_inr": 0,
+  "prior_compensation_claimed": false
+}

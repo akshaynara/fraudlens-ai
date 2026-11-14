@@ -17,7 +17,7 @@ from .archive import CaseArchive
 from .embeddings import Embedder
 from .gemini_client import GeminiClient
 from .graph import corpus_overview
-from .liability import BankPolicy, LiabilityCase, LiabilityDecision, decide
+from .liability import BankPolicy, BankRecord, LiabilityCase, LiabilityDecision, decide
 from .store import CaseStore
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
@@ -73,11 +73,19 @@ async def create_case(narrative: str = Form(...), files: list[UploadFile] = File
     if not narrative.strip() and not files:
         raise HTTPException(400, "Provide a victim statement and/or evidence files")
     blobs = []
+    bank_record = None
     for f in files:
         data = await f.read()
         if len(data) > MAX_UPLOAD_MB * 1024 * 1024:
             raise HTTPException(413, f"{f.filename} exceeds {MAX_UPLOAD_MB} MB")
         mime = f.content_type or "application/octet-stream"
+        if f.filename.endswith(".json"):
+            # bank-side record for the liability decision (transaction log, alerts, reporting times)
+            try:
+                bank_record = BankRecord.model_validate_json(data).model_dump(mode="json")
+            except ValueError as e:
+                raise HTTPException(400, f"{f.filename} is not a valid bank record: {e}")
+            continue
         if mime.startswith("text/") or f.filename.endswith(".txt"):
             narrative += "\n\n[Attached text: " + f.filename + "]\n" + data.decode("utf-8", "ignore")
             continue
@@ -86,7 +94,9 @@ async def create_case(narrative: str = Form(...), files: list[UploadFile] = File
     store.create_case({
         "id": case_id, "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "narrative": narrative.strip(), "evidence_files": [b["name"] for b in blobs], "evidence_blobs": blobs,
-        "status": "queued", "trace": [], "extraction": None, "findings": None, "cluster": None, "review": None, "brief": None,
+        "bank_record": bank_record,
+        "status": "queued", "trace": [], "extraction": None, "findings": None, "cluster": None, "review": None,
+        "liability": None, "brief": None,
     })
     threading.Thread(target=investigator.run, args=(case_id,), daemon=True).start()
     return {"case_id": case_id}
@@ -126,12 +136,13 @@ def liability_samples():
 class LiabilityRequest(BaseModel):
     case: LiabilityCase
     policy: BankPolicy = BankPolicy()
+    preview: bool = False
 
 
 @app.post("/api/liability/decide", response_model=LiabilityDecision)
 def liability_decide(req: LiabilityRequest):
     """Deterministic liability decision under RBI's 2027 framework. No Gemini call; an officer signs the result."""
-    return decide(req.case, req.policy)
+    return decide(req.case, req.policy, req.preview)
 
 
 # Demo evidence bundle so judges can try it without preparing files

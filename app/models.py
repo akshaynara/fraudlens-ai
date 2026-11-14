@@ -63,3 +63,22 @@ class TraceStep(BaseModel):
     title: str
     detail: Optional[str] = None
     payload: Optional[dict] = None
+
+
+class RatedGround(BaseModel):
+    ground: Literal["credentials_shared", "malicious_app_installed", "delayed_notification"]
+    rating: Literal["proven", "claimed", "unknown"] = Field(
+        description="proven = directly visible in a screenshot or document; claimed = only stated or implied, no direct evidence")
+    evidence: str = Field(description="Which evidence item shows it, and what it shows")
+
+
+class LiabilityEvidence(BaseModel):
+    """What the complaint's evidence says about the facts the liability rules need. Facts only, no verdict."""
+
+    transaction_at: Optional[str] = Field(default=None, description="ISO 8601 date-time of the disputed payment with +05:30 offset, only if the evidence states it")
+    reported_to_ncrp_at: Optional[str] = Field(default=None, description="ISO 8601 date-time the victim reported to 1930 or cybercrime.gov.in, only if stated")
+    ncrp_acknowledgement: Optional[str] = Field(default=None, description="NCRP / 1930 acknowledgement number if visible")
+    customer_grounds: list[RatedGround]
+    coercion: Literal["proven", "claimed", "unknown"] = Field(description="Was the payment made under coercion, intimidation or duress")
+    coercion_evidence: str
+    notes: list[str] = Field(description="Anything an officer should check before signing")

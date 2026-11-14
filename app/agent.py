@@ -5,7 +5,8 @@ Investigation pipeline for one incoming complaint.
               ->  [2] Gemini agent investigates with tools (lookups, similarity, report reads)
               ->  [3] Deterministic graph of connections (never hallucinated)
               ->  [4] Gemini Skeptic tries to break every connection
-              ->  [5] Gemini writes the investigation brief, grounded in [1]-[4]
+              ->  [5] Deterministic liability decision under RBI's 2027 framework (rules, never Gemini)
+              ->  [6] Gemini writes the investigation brief, grounded in [1]-[5]
 
 Every step appends to the case trace so the UI can show the agent working live.
 If Gemini is unavailable, each step degrades to a rule-based fallback so the demo never dies.
@@ -19,8 +20,9 @@ import traceback
 from datetime import datetime, timezone
 
 from . import graph as graphmod
+from . import liability as liab
 from .gemini_client import GeminiClient
-from .models import AgentFindings, IncidentExtraction, SkepticReview
+from .models import AgentFindings, IncidentExtraction, LiabilityEvidence, SkepticReview
 from .store import CaseStore, normalize_identifier
 
 log = logging.getLogger("fraudlens.agent")
@@ -62,11 +64,23 @@ For each related report, decide:
 Give one concrete reason per verdict in plain language a bank investigator would accept.
 Never conclude that any person is guilty; you assess evidentiary links only."""
 
+LIABILITY_SYSTEM = """You are an evidence analyst preparing a fraud complaint for a liability decision under
+RBI's customer-protection framework for fraudulent electronic banking transactions. You do NOT decide liability.
+You only report what the complaint's evidence shows about specific facts, and how strongly.
+Rating rules, applied strictly because the burden of proof is on the bank:
+- proven: the fact is directly visible in a screenshot, receipt or document you were given (quote or describe it).
+- claimed: the fact is only stated, implied or inferred, including by the victim, with nothing that shows it.
+- unknown: the evidence does not address it. Do not list unknown grounds.
+A victim paying a fraudster is NOT by itself 'credentials_shared'; that ground needs a PIN, password or OTP being
+disclosed. Give date-times only when the evidence states them; never guess a time."""
+
 BRIEF_SYSTEM = """You write investigation briefs for a bank's financial-crime team in India. Write in clear,
 plain English with short sections. Use markdown headings (##). Sections, in order:
 Incident summary; Timeline; Evidence assessment (supported facts vs assumptions, inconsistencies);
 Related complaints (list each with its link type and the Skeptic's verdict, strongest first; say explicitly which
-proposed links were rejected and why); Pattern assessment (what the cluster suggests about the operation, hedged
+proposed links were rejected and why); Liability assessment (only if a liability decision is provided: state the rule
+matched, the findings relied on with their evidence, the amounts, the response deadline, and what is still unproven;
+copy the amounts and the rule exactly, never recompute or change them); Pattern assessment (what the cluster suggests about the operation, hedged
 appropriately); Unresolved questions; Recommended next steps (concrete: what to pull, whom to contact, what to
 freeze-request through proper authorisation); Draft escalation note (3-4 sentences, ready for an authorised officer
 to review and sign off). Ground every statement in the provided material. Never state or imply that a named
@@ -121,9 +135,20 @@ class Investigator:
                 counts[v.verdict] = counts.get(v.verdict, 0) + 1
             trace("note", "Skeptic verdicts: " + ", ".join(f"{k} {v}" for k, v in counts.items()), review.overall_assessment)
 
+            self.store.update_case(case_id, status="deciding")
+            trace("phase", "Deciding liability", "Deterministic rules on rated findings (RBI 2027 framework). Gemini never chooses the verdict")
+            liability = self._liability(case, extraction, review)
+            self.store.update_case(case_id, liability=liability)
+            if liability["status"] == "decided":
+                d = liability["decision"]
+                trace("note", f"{d['rule']}: {d['headline']}",
+                      f"Reverse Rs {d['reversal_inr']:,.0f} | compensation Rs {d['compensation_inr']:,.0f} | customer bears Rs {d['customer_bears_inr']:,.0f}")
+            else:
+                trace("note", "Liability not decided", "Missing: " + ", ".join(liability["missing"]))
+
             self.store.update_case(case_id, status="writing")
             trace("phase", "Writing the investigation brief")
-            brief = self._brief(case, extraction, findings, cluster, review)
+            brief = self._brief(case, extraction, findings, cluster, review, liability)
             self.store.update_case(case_id, brief=brief)
 
             added = self.store.commit_case_to_corpus(case_id, extraction.model_dump())
@@ -273,8 +298,63 @@ class Investigator:
                 verdicts.append({"report_id": r["report_id"], "verdict": "plausible", "reason": f"{r['hops']}-hop chain through non-generic identifiers."})
         return SkepticReview(verdicts=verdicts, overall_assessment="Rule-based review (Gemini unavailable).", what_would_change_my_mind=[])
 
-    # ------------------------------------------------------------------ [5] brief
-    def _brief(self, case, extraction, findings, cluster, review) -> str:
+    # ------------------------------------------------------------------ [5] liability
+    def _liability(self, case: dict, extraction: IncidentExtraction, review: SkepticReview) -> dict:
+        """Gather facts (bank record + evidence), then let the deterministic rules decide."""
+        record = liab.BankRecord.model_validate(case.get("bank_record") or {})
+        evidence = self._liability_evidence(case, extraction)
+
+        txn_at = record.transaction_at or _parse_dt(evidence.transaction_at)
+        receipt = [a for a in extraction.amounts if "receipt" in a.source.lower()]
+        amount = record.amount_inr or next((a.value_inr for a in receipt + list(extraction.amounts)), None)
+        missing = [name for name, v in (("transaction date and time", txn_at), ("transaction amount", amount)) if not v]
+        if missing:
+            return {"status": "needs_data", "missing": missing, "has_bank_record": bool(case.get("bank_record")),
+                    "evidence": evidence.model_dump()}
+
+        bank_f, cust_f, tp_rating, tp_evidence = liab.findings_from_bank_record(record)
+        have = {f.ground for f in cust_f}
+        cust_f += [liab.CustomerFinding(ground=g.ground, rating=g.rating, evidence=g.evidence)
+                   for g in evidence.customer_grounds if g.rating != "unknown" and g.ground not in have]
+        strong = sum(1 for v in review.verdicts if v.verdict == "strong")
+        lcase = liab.LiabilityCase(
+            case_id=case["id"], transaction_at=txn_at, amount_inr=amount, cross_border=record.cross_border,
+            is_credit_card=record.is_credit_card, customer_type=record.customer_type,
+            # with no bank record, the complaint reaching FraudLens is the report to the bank
+            reported_to_bank_at=record.reported_to_bank_at or _parse_dt(case["created_at"]),
+            reported_to_ncrp_at=record.reported_to_ncrp_at or _parse_dt(evidence.reported_to_ncrp_at),
+            ncrp_acknowledgement=record.ncrp_acknowledgement or evidence.ncrp_acknowledgement,
+            bank_findings=bank_f, customer_findings=cust_f, third_party_breach=tp_rating, third_party_evidence=tp_evidence,
+            amount_recovered_inr=record.amount_recovered_inr, post_report_amount_inr=record.post_report_amount_inr,
+            prior_compensation_claimed=record.prior_compensation_claimed, linked_complaints=strong)
+        decision = liab.decide(lcase, preview=True)
+        return {"status": "decided", "has_bank_record": bool(case.get("bank_record")),
+                "case": lcase.model_dump(mode="json"), "decision": decision.model_dump(mode="json"),
+                "coercion": {"rating": evidence.coercion, "evidence": evidence.coercion_evidence},
+                "notes": evidence.notes, "letter": liab.customer_letter(decision)}
+
+    def _liability_evidence(self, case: dict, extraction: IncidentExtraction) -> LiabilityEvidence:
+        if self.gemini.available:
+            try:
+                parts = []
+                for f in case["evidence_blobs"]:
+                    parts.append(self.gemini.file_part(f["bytes"], f["mime"]))
+                    parts.append(f"(The item above is evidence file: {f['name']})")
+                parts.append(f"Today's date (UTC): {_today()}. The complaint was received at {case['created_at']}.\n\n"
+                             f"Victim statement:\n{case['narrative']}\n\nReconstruction so far:\n{extraction.model_dump_json(indent=1)}"
+                             "\n\nReport the facts for the liability decision.")
+                return self.gemini.generate_structured(parts, LiabilityEvidence, LIABILITY_SYSTEM, model=self.gemini.model_pro)
+            except Exception as e:  # the decision can still run on the bank record alone
+                log.warning("liability evidence pass failed: %s", e)
+        t = case["narrative"].lower()
+        coerced = any(k in t for k in ("digital arrest", "could not hang up", "threat", "arrest"))
+        return LiabilityEvidence(
+            customer_grounds=[], coercion="claimed" if coerced else "unknown",
+            coercion_evidence="Victim statement describes threats or confinement on a call" if coerced else "",
+            notes=["Offline mode: screenshots were not read for the liability facts; only the bank record and statement were used."])
+
+    # ------------------------------------------------------------------ [6] brief
+    def _brief(self, case, extraction, findings, cluster, review, liability=None) -> str:
         material = {
             "today_utc": _today(), "case_id": case["id"], "received": case["created_at"], "victim_statement": case["narrative"],
             "reconstruction": extraction.model_dump(), "agent_findings": findings.model_dump(),
@@ -282,6 +362,8 @@ class Investigator:
                         "generic_identifiers_ignored": cluster["generic_identifiers"]},
             "skeptic_review": review.model_dump(),
         }
+        if liability and liability.get("status") == "decided":
+            material["liability_decision"] = {"decision": liability["decision"], "coercion": liability["coercion"], "notes": liability["notes"]}
         if self.gemini.available:
             return self.gemini.generate_text(json.dumps(material, indent=1, default=str) + "\n\nWrite the investigation brief.",
                                              BRIEF_SYSTEM, model=self.gemini.model_pro)
@@ -291,8 +373,20 @@ class Investigator:
             v = vmap.get(r["report_id"])
             via = " -> ".join(x["value"] for x in r["via"])
             lines.append(f"- {r['report_id']} ({r['scam_type']}, {r['filed_at'][:10]}): via {via}. Verdict: {v.verdict if v else 'n/a'}")
+        if liability and liability.get("status") == "decided":
+            d = liability["decision"]
+            lines.append(f"## Liability assessment\n{d['rule']}: {d['headline']}\n\n" + "\n".join(f"- {r}" for r in d["reasons"]))
         lines.append("## Note\nGemini unavailable: this is a rule-based brief. Set GEMINI_API_KEY for the full analysis.")
         return "\n\n".join(lines)
+
+
+def _parse_dt(value) -> datetime | None:
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except ValueError:
+        return None
 
 
 def _today() -> str:
