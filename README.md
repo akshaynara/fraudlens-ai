@@ -49,6 +49,35 @@ corpus so the next complaint can link to it, and the full investigation record i
 * Scam rings rotate numbers but reuse UPI IDs (or vice versa). Only chaining across reports reveals them.
 * Investigators must be able to defend a connection. The Skeptic produces that defence — or kills the link.
 
+## Liability engine (RBI 2027 framework)
+
+From 1 January 2027, RBI's revised customer-protection directions put the burden of proving customer
+liability on the bank and set deadlines for every fraud complaint. `app/liability.py` turns one
+complaint into a decision an officer can sign: who bears the loss, what compensation is due, and why.
+
+Same rule as the graph: the verdict is deterministic code, never Gemini. Each negligence finding is
+rated `proven`, `claimed` or `unknown`, and only `proven` findings can count against the customer.
+
+| Rule | Finding | Outcome |
+|---|---|---|
+| R1 | Bank negligence proven | Zero liability, full reversal |
+| R2 | Third-party breach, reported within 5 days | Zero liability, full reversal |
+| R3 | Third-party breach, reported later | The bank's own policy (configurable) |
+| R4 | Customer negligence proven, compensation conditions met | 85% of net loss, capped at Rs 25,000 |
+| R5 | Customer negligence proven, conditions not met | Customer bears the loss; rejection with reasons |
+| R6 | Transactions after the customer's report | Borne by the bank, on top of any outcome |
+| R7 | Nothing proven | Bank has not met its burden; not the customer's liability |
+
+```bash
+pip install pytest && python -m pytest tests -q      # one test per rule, plus edge days
+curl localhost:8080/api/liability/samples             # seven synthetic cases, one per rule
+curl -X POST localhost:8080/api/liability/decide -H 'content-type: application/json' \
+     -d '{"case": {"case_id": "T1", "transaction_at": "2027-01-18T16:40:00+05:30", "amount_inr": 48000}}'
+```
+
+The rule values come from published summaries of the directions and sit as constants at the top of
+`app/liability.py`. Check them against the RBI text before relying on them. Not legal advice.
+
 ## Repository layout
 
 ```

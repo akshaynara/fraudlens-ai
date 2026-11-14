@@ -1,0 +1,63 @@
+[
+  {
+    "label": "R1 - Bank sent no alert for a card-not-present debit",
+    "case": {
+      "case_id": "LIAB-001", "transaction_at": "2027-02-03T14:10:00+05:30", "amount_inr": 18500,
+      "reported_to_bank_at": "2027-02-20T10:00:00+05:30",
+      "bank_findings": [{"ground": "alert_not_sent", "rating": "proven", "evidence": "Bank SMS log: no alert dispatched for txn ending 4417"}]
+    }
+  },
+  {
+    "label": "R2 - Payment gateway breach, reported on day 3",
+    "case": {
+      "case_id": "LIAB-002", "transaction_at": "2027-03-10T09:30:00+05:30", "amount_inr": 32000,
+      "reported_to_bank_at": "2027-03-13T11:00:00+05:30",
+      "third_party_breach": "proven", "third_party_evidence": "Gateway incident report INC-2291: card data exposed 8-10 March"
+    }
+  },
+  {
+    "label": "R3 - Same gateway breach, reported on day 12",
+    "case": {
+      "case_id": "LIAB-003", "transaction_at": "2027-03-10T09:30:00+05:30", "amount_inr": 32000,
+      "reported_to_bank_at": "2027-03-22T11:00:00+05:30",
+      "third_party_breach": "proven", "third_party_evidence": "Gateway incident report INC-2291: card data exposed 8-10 March"
+    }
+  },
+  {
+    "label": "R4 - Digital arrest, Rs 48,000, reported on day 2 (FraudLens demo case)",
+    "case": {
+      "case_id": "LIAB-004", "transaction_at": "2027-01-18T16:40:00+05:30", "amount_inr": 48000,
+      "reported_to_bank_at": "2027-01-20T10:15:00+05:30", "reported_to_ncrp_at": "2027-01-20T09:50:00+05:30",
+      "ncrp_acknowledgement": "21901270012345",
+      "customer_findings": [{"ground": "ignored_scam_warning", "rating": "proven", "evidence": "Bank app log: 'possible scam' warning shown and dismissed at 16:38"}],
+      "linked_complaints": 5
+    }
+  },
+  {
+    "label": "R5 - Same digital arrest case, reported on day 9",
+    "case": {
+      "case_id": "LIAB-005", "transaction_at": "2027-01-18T16:40:00+05:30", "amount_inr": 48000,
+      "reported_to_bank_at": "2027-01-27T10:15:00+05:30", "reported_to_ncrp_at": "2027-01-27T09:50:00+05:30",
+      "ncrp_acknowledgement": "21901270067890",
+      "customer_findings": [{"ground": "ignored_scam_warning", "rating": "proven", "evidence": "Bank app log: 'possible scam' warning shown and dismissed at 16:38"}],
+      "linked_complaints": 5
+    }
+  },
+  {
+    "label": "R6 - OTP shared, plus Rs 7,000 debited after the customer reported",
+    "case": {
+      "case_id": "LIAB-006", "transaction_at": "2027-04-05T12:00:00+05:30", "amount_inr": 10000,
+      "reported_to_bank_at": "2027-04-06T09:00:00+05:30", "reported_to_ncrp_at": "2027-04-06T09:20:00+05:30",
+      "post_report_amount_inr": 7000,
+      "customer_findings": [{"ground": "credentials_shared", "rating": "proven", "evidence": "WhatsApp screenshot: customer sends OTP 482913 to 'KYC officer'"}]
+    }
+  },
+  {
+    "label": "R7 - Bank says the OTP was shared, but has no evidence",
+    "case": {
+      "case_id": "LIAB-007", "transaction_at": "2027-05-12T19:20:00+05:30", "amount_inr": 27000,
+      "reported_to_bank_at": "2027-05-13T08:00:00+05:30",
+      "customer_findings": [{"ground": "credentials_shared", "rating": "claimed", "evidence": "Branch note: 'customer must have shared OTP'"}]
+    }
+  }
+]
